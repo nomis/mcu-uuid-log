@@ -35,27 +35,29 @@ namespace log {
 std::map<Receiver*,Level> Logger::receivers_;
 Level Logger::level_ = Level::OFF;
 
-const char *pstr_level_uppercase_emerg __attribute__((__aligned__(sizeof(int)))) PROGMEM = "EMERG";
-const char *pstr_level_uppercase_crit __attribute__((__aligned__(sizeof(int)))) PROGMEM = "CRIT";
-const char *pstr_level_uppercase_alert __attribute__((__aligned__(sizeof(int)))) PROGMEM = "ALERT";
-const char *pstr_level_uppercase_err __attribute__((__aligned__(sizeof(int)))) PROGMEM = "ERR";
-const char *pstr_level_uppercase_warning __attribute__((__aligned__(sizeof(int)))) PROGMEM = "WARNING";
-const char *pstr_level_uppercase_notice __attribute__((__aligned__(sizeof(int)))) PROGMEM = "NOTICE";
-const char *pstr_level_uppercase_info __attribute__((__aligned__(sizeof(int)))) PROGMEM = "INFO";
-const char *pstr_level_uppercase_debug __attribute__((__aligned__(sizeof(int)))) PROGMEM = "DEBUG";
-const char *pstr_level_uppercase_trace __attribute__((__aligned__(sizeof(int)))) PROGMEM = "TRACE";
-const char *pstr_level_uppercase_off __attribute__((__aligned__(sizeof(int)))) PROGMEM = "OFF";
+static const char *pstr_level_uppercase_off __attribute__((__aligned__(sizeof(int)))) PROGMEM = "OFF";
+static const char *pstr_level_uppercase_emerg __attribute__((__aligned__(sizeof(int)))) PROGMEM = "EMERG";
+static const char *pstr_level_uppercase_crit __attribute__((__aligned__(sizeof(int)))) PROGMEM = "CRIT";
+static const char *pstr_level_uppercase_alert __attribute__((__aligned__(sizeof(int)))) PROGMEM = "ALERT";
+static const char *pstr_level_uppercase_err __attribute__((__aligned__(sizeof(int)))) PROGMEM = "ERR";
+static const char *pstr_level_uppercase_warning __attribute__((__aligned__(sizeof(int)))) PROGMEM = "WARNING";
+static const char *pstr_level_uppercase_notice __attribute__((__aligned__(sizeof(int)))) PROGMEM = "NOTICE";
+static const char *pstr_level_uppercase_info __attribute__((__aligned__(sizeof(int)))) PROGMEM = "INFO";
+static const char *pstr_level_uppercase_debug __attribute__((__aligned__(sizeof(int)))) PROGMEM = "DEBUG";
+static const char *pstr_level_uppercase_trace __attribute__((__aligned__(sizeof(int)))) PROGMEM = "TRACE";
+static const char *pstr_level_uppercase_all __attribute__((__aligned__(sizeof(int)))) PROGMEM = "ALL";
 
-const char *pstr_level_lowercase_emerg __attribute__((__aligned__(sizeof(int)))) PROGMEM = "emerg";
-const char *pstr_level_lowercase_crit __attribute__((__aligned__(sizeof(int)))) PROGMEM = "crit";
-const char *pstr_level_lowercase_alert __attribute__((__aligned__(sizeof(int)))) PROGMEM = "alert";
-const char *pstr_level_lowercase_err __attribute__((__aligned__(sizeof(int)))) PROGMEM = "err";
-const char *pstr_level_lowercase_warning __attribute__((__aligned__(sizeof(int)))) PROGMEM = "warning";
-const char *pstr_level_lowercase_notice __attribute__((__aligned__(sizeof(int)))) PROGMEM = "notice";
-const char *pstr_level_lowercase_info __attribute__((__aligned__(sizeof(int)))) PROGMEM = "info";
-const char *pstr_level_lowercase_debug __attribute__((__aligned__(sizeof(int)))) PROGMEM = "debug";
-const char *pstr_level_lowercase_trace __attribute__((__aligned__(sizeof(int)))) PROGMEM = "trace";
-const char *pstr_level_lowercase_off __attribute__((__aligned__(sizeof(int)))) PROGMEM = "off";
+static const char *pstr_level_lowercase_all __attribute__((__aligned__(sizeof(int)))) PROGMEM = "all";
+static const char *pstr_level_lowercase_emerg __attribute__((__aligned__(sizeof(int)))) PROGMEM = "emerg";
+static const char *pstr_level_lowercase_crit __attribute__((__aligned__(sizeof(int)))) PROGMEM = "crit";
+static const char *pstr_level_lowercase_alert __attribute__((__aligned__(sizeof(int)))) PROGMEM = "alert";
+static const char *pstr_level_lowercase_err __attribute__((__aligned__(sizeof(int)))) PROGMEM = "err";
+static const char *pstr_level_lowercase_warning __attribute__((__aligned__(sizeof(int)))) PROGMEM = "warning";
+static const char *pstr_level_lowercase_notice __attribute__((__aligned__(sizeof(int)))) PROGMEM = "notice";
+static const char *pstr_level_lowercase_info __attribute__((__aligned__(sizeof(int)))) PROGMEM = "info";
+static const char *pstr_level_lowercase_debug __attribute__((__aligned__(sizeof(int)))) PROGMEM = "debug";
+static const char *pstr_level_lowercase_trace __attribute__((__aligned__(sizeof(int)))) PROGMEM = "trace";
+static const char *pstr_level_lowercase_off __attribute__((__aligned__(sizeof(int)))) PROGMEM = "off";
 
 std::string format_timestamp_ms(int days_width, uint64_t timestamp_ms) {
 	unsigned long days;
@@ -83,12 +85,12 @@ std::string format_timestamp_ms(int days_width, uint64_t timestamp_ms) {
 }
 
 char format_level_char(Level level) {
-	constexpr char log_level_chars[(int)Level::TRACE - (int)Level::OFF + 1] = { ' ', 'P', 'A', 'C', 'E', 'W', 'N', 'I', 'D', 'T' };
+	constexpr char log_level_chars[(int)Level::ALL - (int)Level::OFF + 1] = { ' ', 'P', 'A', 'C', 'E', 'W', 'N', 'I', 'D', 'T', ' ' };
 	return log_level_chars[(int)level + 1];
 }
 
 const __FlashStringHelper *format_level_uppercase(Level level) {
-	const __FlashStringHelper *log_level_uppercase[(int)Level::TRACE - (int)Level::OFF + 1] = {
+	const __FlashStringHelper *log_level_uppercase[(int)Level::ALL - (int)Level::OFF + 1] = {
 			FPSTR(pstr_level_uppercase_off),
 			FPSTR(pstr_level_uppercase_emerg),
 			FPSTR(pstr_level_uppercase_crit),
@@ -98,13 +100,14 @@ const __FlashStringHelper *format_level_uppercase(Level level) {
 			FPSTR(pstr_level_uppercase_notice),
 			FPSTR(pstr_level_uppercase_info),
 			FPSTR(pstr_level_uppercase_debug),
-			FPSTR(pstr_level_uppercase_trace)
+			FPSTR(pstr_level_uppercase_trace),
+			FPSTR(pstr_level_uppercase_all)
 	};
 	return log_level_uppercase[(int)level + 1];
 }
 
 const __FlashStringHelper *format_level_lowercase(Level level) {
-	const __FlashStringHelper *log_level_lowercase[(int)Level::TRACE - (int)Level::OFF + 1] = {
+	const __FlashStringHelper *log_level_lowercase[(int)Level::ALL - (int)Level::OFF + 1] = {
 			FPSTR(pstr_level_lowercase_off),
 			FPSTR(pstr_level_lowercase_emerg),
 			FPSTR(pstr_level_lowercase_crit),
@@ -114,7 +117,8 @@ const __FlashStringHelper *format_level_lowercase(Level level) {
 			FPSTR(pstr_level_lowercase_notice),
 			FPSTR(pstr_level_lowercase_info),
 			FPSTR(pstr_level_lowercase_debug),
-			FPSTR(pstr_level_lowercase_trace)
+			FPSTR(pstr_level_lowercase_trace),
+			FPSTR(pstr_level_lowercase_all)
 	};
 	return log_level_lowercase[(int)level + 1];
 }
@@ -321,6 +325,12 @@ void Logger::trace(const __FlashStringHelper *format, ...) {
 };
 
 void Logger::log(Level level, const char *format, ...) {
+	if (level < Level::EMERG) {
+		level = Level::EMERG;
+	} else if (level > Level::TRACE) {
+		level = Level::TRACE;
+	}
+
 	if (enabled(level)) {
 		va_list ap;
 
@@ -331,6 +341,12 @@ void Logger::log(Level level, const char *format, ...) {
 };
 
 void Logger::log(Level level, const __FlashStringHelper *format, ...) {
+	if (level < Level::EMERG) {
+		level = Level::EMERG;
+	} else if (level > Level::TRACE) {
+		level = Level::TRACE;
+	}
+
 	if (enabled(level)) {
 		va_list ap;
 

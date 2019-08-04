@@ -44,7 +44,8 @@ enum class Level {
 	NOTICE,
 	INFO,
 	DEBUG,
-	TRACE
+	TRACE,
+	ALL,
 };
 
 std::string format_timestamp_ms(int days_width, uint64_t timestamp_ms);
