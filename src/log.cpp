@@ -32,7 +32,6 @@ namespace uuid {
 
 namespace log {
 
-unsigned long Message::next_id_ = 0;
 std::map<Receiver*,Level> Logger::receivers_;
 Level Logger::level_ = Level::OFF;
 
@@ -121,7 +120,7 @@ const __FlashStringHelper *format_level_lowercase(Level level) {
 }
 
 Message::Message(uint64_t uptime_ms, Level level, const __FlashStringHelper *name, const std::string &&text)
-		: id_(next_id_++), uptime_ms_(uptime_ms), level_(level), name_(name), text_(std::move(text)) {
+		: uptime_ms_(uptime_ms), level_(level), name_(name), text_(std::move(text)) {
 }
 
 Logger::Logger(const __FlashStringHelper *name)

@@ -79,14 +79,10 @@ public:
 	Message(uint64_t uptime_ms, Level level, const __FlashStringHelper *name, const std::string &&text);
 	~Message() = default;
 
-	const unsigned long id_;
 	const uint64_t uptime_ms_;
 	const Level level_;
 	const __FlashStringHelper *name_;
 	const std::string text_;
-
-private:
-	static unsigned long next_id_;
 };
 
 class Receiver {
