@@ -47,28 +47,6 @@ enum class Level {
 	TRACE
 };
 
-extern const char *pstr_level_uppercase_emerg;
-extern const char *pstr_level_uppercase_crit;
-extern const char *pstr_level_uppercase_alert;
-extern const char *pstr_level_uppercase_err;
-extern const char *pstr_level_uppercase_warning;
-extern const char *pstr_level_uppercase_notice;
-extern const char *pstr_level_uppercase_info;
-extern const char *pstr_level_uppercase_debug;
-extern const char *pstr_level_uppercase_trace;
-extern const char *pstr_level_uppercase_off;
-
-extern const char *pstr_level_lowercase_emerg;
-extern const char *pstr_level_lowercase_crit;
-extern const char *pstr_level_lowercase_alert;
-extern const char *pstr_level_lowercase_err;
-extern const char *pstr_level_lowercase_warning;
-extern const char *pstr_level_lowercase_notice;
-extern const char *pstr_level_lowercase_info;
-extern const char *pstr_level_lowercase_debug;
-extern const char *pstr_level_lowercase_trace;
-extern const char *pstr_level_lowercase_off;
-
 std::string format_timestamp_ms(int days_width, uint64_t timestamp_ms);
 char format_level_char(Level level);
 const __FlashStringHelper *format_level_uppercase(Level level);
