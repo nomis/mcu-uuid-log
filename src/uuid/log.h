@@ -116,10 +116,6 @@ public:
 	static void unregister_receiver(Receiver *receiver);
 
 	static Level get_log_level(Receiver *receiver);
-	/**
-	 * Cleanup processed messages. Must be called regularly to release memory.
-	 */
-	static void cleanup_messages();
 
 	static inline bool enabled(Level level);
 	void emerg(const char *format, ...) /* __attribute__ ((format (printf, 2, 3))) */;
