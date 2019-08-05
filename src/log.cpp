@@ -123,12 +123,12 @@ const __FlashStringHelper *format_level_lowercase(Level level) {
 	return log_level_lowercase[(int)level + 1];
 }
 
-Message::Message(uint64_t uptime_ms, Level level, const __FlashStringHelper *name, const std::string &&text)
-		: uptime_ms_(uptime_ms), level_(level), name_(name), text_(std::move(text)) {
+Message::Message(uint64_t uptime_ms, Level level, Facility facility, const __FlashStringHelper *name, const std::string &&text)
+		: uptime_ms_(uptime_ms), level_(level), facility_(facility), name_(name), text_(std::move(text)) {
 }
 
-Logger::Logger(const __FlashStringHelper *name)
-		: name_(name) {
+Logger::Logger(const __FlashStringHelper *name, Facility facility)
+		: name_(name), facility_(facility) {
 
 };
 
@@ -377,7 +377,7 @@ void Logger::vlog(Level level, const __FlashStringHelper *format, va_list ap) {
 }
 
 void Logger::dispatch(Level level, std::vector<char> &text) {
-	std::shared_ptr<Message> message = std::make_shared<Message>(get_uptime_ms(), level, name_, text.data());
+	std::shared_ptr<Message> message = std::make_shared<Message>(get_uptime_ms(), level, facility_, name_, text.data());
 	text.resize(0);
 
 	for (auto &receiver : receivers_) {

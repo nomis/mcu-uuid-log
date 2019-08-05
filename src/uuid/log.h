@@ -48,6 +48,33 @@ enum class Level {
 	ALL,
 };
 
+enum class Facility {
+	KERN = 0,
+	USER,
+	MAIL,
+	DAEMON,
+	AUTH,
+	SYSLOG, // Internal
+	LPR,
+	NEWS,
+	UUCP,
+	CRON, // Clock daemon
+	AUTHPRIV,
+	FTP,
+	NTP,
+	SECURITY, // Log audit
+	CONSOLE, // Log alert
+	CRON2, // Clock daemon
+	LOCAL0,
+	LOCAL1,
+	LOCAL2,
+	LOCAL3,
+	LOCAL4,
+	LOCAL5,
+	LOCAL6,
+	LOCAL7,
+};
+
 std::string format_timestamp_ms(int days_width, uint64_t timestamp_ms);
 char format_level_char(Level level);
 const __FlashStringHelper *format_level_uppercase(Level level);
@@ -55,11 +82,12 @@ const __FlashStringHelper *format_level_lowercase(Level level);
 
 class Message {
 public:
-	Message(uint64_t uptime_ms, Level level, const __FlashStringHelper *name, const std::string &&text);
+	Message(uint64_t uptime_ms, Level level, Facility facility, const __FlashStringHelper *name, const std::string &&text);
 	~Message() = default;
 
 	const uint64_t uptime_ms_;
 	const Level level_;
+	const Facility facility_;
 	const __FlashStringHelper *name_;
 	const std::string text_;
 };
@@ -78,7 +106,7 @@ class Logger {
 public:
 	static constexpr size_t MAX_LOG_LENGTH = 255;
 
-	Logger(const __FlashStringHelper *name);
+	Logger(const __FlashStringHelper *name, Facility facility);
 	~Logger() = default;
 
 	/**
@@ -125,6 +153,7 @@ private:
 	static Level level_;
 
 	const __FlashStringHelper *name_;
+	const Facility facility_;
 };
 
 } // namespace log
