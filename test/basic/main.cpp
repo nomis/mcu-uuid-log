@@ -21,9 +21,6 @@
 
 #include <memory>
 
-#include <stdio.h>
-#include <stdlib.h>
-
 #include <uuid/log.h>
 
 class Test: public uuid::log::Receiver {
