@@ -98,5 +98,5 @@ void test() {
 int main(int argc, char *argv[]) {
 	UNITY_BEGIN();
 	RUN_TEST(test);
-	return UNITY_END();;
+	return UNITY_END();
 }
