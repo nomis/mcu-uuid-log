@@ -136,14 +136,16 @@ public:
 	void debug(const __FlashStringHelper *format, ...) /* __attribute__ ((format (printf, 2, 3))) */;
 	void trace(const char *format, ...) /* __attribute__ ((format (printf, 2, 3))) */;
 	void trace(const __FlashStringHelper *format, ...) /* __attribute__ ((format (printf, 2, 3))) */;
-	void log(Level level, const char *format, ...) /* __attribute__ ((format (printf, 2, 3))) */;
-	void log(Level level, const __FlashStringHelper *format, ...) /* __attribute__ ((format (printf, 3, 4))) */;
+	void log(Level level, Facility facility, const char *format, ...) /* __attribute__ ((format (printf, 3, 4))) */;
+	void log(Level level, Facility facility, const __FlashStringHelper *format, ...) /* __attribute__ ((format (printf, 4, 5))) */;
 
 private:
 	static void refresh_log_level();
 	void vlog(Level level, const char *format, va_list ap);
 	void vlog(Level level, const __FlashStringHelper *format, va_list ap);
-	void dispatch(Level level, std::vector<char> &text);
+	void vlog(Level level, Facility facility, const char *format, va_list ap);
+	void vlog(Level level, Facility facility, const __FlashStringHelper *format, va_list ap);
+	void dispatch(Level level, Facility facility, std::vector<char> &text);
 
 	static std::map<Receiver*,Level> receivers_;
 	static Level level_;

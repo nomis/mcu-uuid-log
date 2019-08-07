@@ -324,7 +324,7 @@ void Logger::trace(const __FlashStringHelper *format, ...) {
 	}
 };
 
-void Logger::log(Level level, const char *format, ...) {
+void Logger::log(Level level, Facility facility, const char *format, ...) {
 	if (level < Level::EMERG) {
 		level = Level::EMERG;
 	} else if (level > Level::TRACE) {
@@ -335,12 +335,12 @@ void Logger::log(Level level, const char *format, ...) {
 		va_list ap;
 
 		va_start(ap, format);
-		vlog(level, format, ap);
+		vlog(level, facility, format, ap);
 		va_end(ap);
 	}
 };
 
-void Logger::log(Level level, const __FlashStringHelper *format, ...) {
+void Logger::log(Level level, Facility facility, const __FlashStringHelper *format, ...) {
 	if (level < Level::EMERG) {
 		level = Level::EMERG;
 	} else if (level > Level::TRACE) {
@@ -351,33 +351,41 @@ void Logger::log(Level level, const __FlashStringHelper *format, ...) {
 		va_list ap;
 
 		va_start(ap, format);
-		vlog(level, format, ap);
+		vlog(level, facility, format, ap);
 		va_end(ap);
 	}
 };
 
 void Logger::vlog(Level level, const char *format, va_list ap) {
+	vlog(level, facility_, format, ap);
+}
+
+void Logger::vlog(Level level, Facility facility, const char *format, va_list ap) {
 	std::vector<char> text(MAX_LOG_LENGTH + 1);
 
 	if (vsnprintf(text.data(), text.size(), format, ap) <= 0) {
 		return;
 	}
 
-	dispatch(level, text);
+	dispatch(level, facility, text);
 }
 
 void Logger::vlog(Level level, const __FlashStringHelper *format, va_list ap) {
+	vlog(level, facility_, format, ap);
+}
+
+void Logger::vlog(Level level, Facility facility, const __FlashStringHelper *format, va_list ap) {
 	std::vector<char> text(MAX_LOG_LENGTH + 1);
 
 	if (vsnprintf_P(text.data(), text.size(), reinterpret_cast<PGM_P>(format), ap) <= 0) {
 		return;
 	}
 
-	dispatch(level, text);
+	dispatch(level, facility, text);
 }
 
-void Logger::dispatch(Level level, std::vector<char> &text) {
-	std::shared_ptr<Message> message = std::make_shared<Message>(get_uptime_ms(), level, facility_, name_, text.data());
+void Logger::dispatch(Level level, Facility facility, std::vector<char> &text) {
+	std::shared_ptr<Message> message = std::make_shared<Message>(get_uptime_ms(), level, facility, name_, text.data());
 	text.resize(0);
 
 	for (auto &receiver : receivers_) {
