@@ -59,7 +59,7 @@ static const char *pstr_level_lowercase_debug __attribute__((__aligned__(sizeof(
 static const char *pstr_level_lowercase_trace __attribute__((__aligned__(sizeof(int)))) PROGMEM = "trace";
 static const char *pstr_level_lowercase_all __attribute__((__aligned__(sizeof(int)))) PROGMEM = "all";
 
-std::string format_timestamp_ms(int days_width, uint64_t timestamp_ms) {
+std::string format_timestamp_ms(uint64_t timestamp_ms, unsigned int days_width) {
 	unsigned long days;
 	unsigned int hours, minutes, seconds, milliseconds;
 
@@ -79,7 +79,7 @@ std::string format_timestamp_ms(int days_width, uint64_t timestamp_ms) {
 
 	std::vector<char> text(10 + 1 /* days */ + 2 + 1 /* hours */ + 2 + 1 /* minutes */ + 2 + 1 /* seconds */ + 3 /* milliseconds */ + 1);
 
-	snprintf(text.data(), text.size(), "%0*ld+%02d:%02d:%02d.%03d", days_width, days, hours, minutes, seconds, milliseconds);
+	snprintf(text.data(), text.size(), "%0*ld+%02d:%02d:%02d.%03d", std::max(days_width, 10U), days, hours, minutes, seconds, milliseconds);
 
 	return text.data();
 }
@@ -171,6 +171,7 @@ void Logger::emerg(const __FlashStringHelper *format, ...) {
 		va_end(ap);
 	}
 };
+
 void Logger::crit(const char *format, ...) {
 	if (enabled(Level::CRIT)) {
 		va_list ap;
@@ -190,6 +191,7 @@ void Logger::crit(const __FlashStringHelper *format, ...) {
 		va_end(ap);
 	}
 };
+
 void Logger::alert(const char *format, ...) {
 	if (enabled(Level::ALERT)) {
 		va_list ap;
@@ -228,6 +230,7 @@ void Logger::err(const __FlashStringHelper *format, ...) {
 		va_end(ap);
 	}
 };
+
 void Logger::warning(const char *format, ...) {
 	if (enabled(Level::WARNING)) {
 		va_list ap;
@@ -247,6 +250,7 @@ void Logger::warning(const __FlashStringHelper *format, ...) {
 		va_end(ap);
 	}
 };
+
 void Logger::notice(const char *format, ...) {
 	if (enabled(Level::NOTICE)) {
 		va_list ap;
@@ -266,6 +270,7 @@ void Logger::notice(const __FlashStringHelper *format, ...) {
 		va_end(ap);
 	}
 };
+
 void Logger::info(const char *format, ...) {
 	if (enabled(Level::INFO)) {
 		va_list ap;
@@ -285,6 +290,7 @@ void Logger::info(const __FlashStringHelper *format, ...) {
 		va_end(ap);
 	}
 };
+
 void Logger::debug(const char *format, ...) {
 	if (enabled(Level::DEBUG)) {
 		va_list ap;
@@ -304,6 +310,7 @@ void Logger::debug(const __FlashStringHelper *format, ...) {
 		va_end(ap);
 	}
 };
+
 void Logger::trace(const char *format, ...) {
 	if (enabled(Level::TRACE)) {
 		va_list ap;
@@ -394,10 +401,6 @@ void Logger::dispatch(Level level, Facility facility, std::vector<char> &text) {
 		}
 	}
 }
-
-inline bool Logger::enabled(Level level) {
-	return level <= level_;
-};
 
 void Logger::refresh_log_level() {
 	level_ = Level::OFF;
