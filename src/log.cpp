@@ -47,7 +47,7 @@ static const char *pstr_level_uppercase_debug __attribute__((__aligned__(sizeof(
 static const char *pstr_level_uppercase_trace __attribute__((__aligned__(sizeof(int)))) PROGMEM = "TRACE";
 static const char *pstr_level_uppercase_all __attribute__((__aligned__(sizeof(int)))) PROGMEM = "ALL";
 
-static const char *pstr_level_lowercase_all __attribute__((__aligned__(sizeof(int)))) PROGMEM = "all";
+static const char *pstr_level_lowercase_off __attribute__((__aligned__(sizeof(int)))) PROGMEM = "off";
 static const char *pstr_level_lowercase_emerg __attribute__((__aligned__(sizeof(int)))) PROGMEM = "emerg";
 static const char *pstr_level_lowercase_crit __attribute__((__aligned__(sizeof(int)))) PROGMEM = "crit";
 static const char *pstr_level_lowercase_alert __attribute__((__aligned__(sizeof(int)))) PROGMEM = "alert";
@@ -57,7 +57,7 @@ static const char *pstr_level_lowercase_notice __attribute__((__aligned__(sizeof
 static const char *pstr_level_lowercase_info __attribute__((__aligned__(sizeof(int)))) PROGMEM = "info";
 static const char *pstr_level_lowercase_debug __attribute__((__aligned__(sizeof(int)))) PROGMEM = "debug";
 static const char *pstr_level_lowercase_trace __attribute__((__aligned__(sizeof(int)))) PROGMEM = "trace";
-static const char *pstr_level_lowercase_off __attribute__((__aligned__(sizeof(int)))) PROGMEM = "off";
+static const char *pstr_level_lowercase_all __attribute__((__aligned__(sizeof(int)))) PROGMEM = "all";
 
 std::string format_timestamp_ms(int days_width, uint64_t timestamp_ms) {
 	unsigned long days;
