@@ -8,12 +8,12 @@ functions in ``uuid::log::Logger``, which would be quite inconvenient).
 
 There is no option to exclude compilation of debug-level messages, the
 expectation is that these will be disabled at runtime. If your program
-cannot fit in flash with the debug messages enabled then there's no
-benefit in having them.
+cannot fit in flash with the debug messages enabled or run with
+sufficient performance then there's no benefit in having them.
 
 The performance impact of disabled debug logging can be limited by using
-the ``uuid::log::Logger::enabled(uuid::log::Level level)`` function (but
-messages will not be formatted if the level isn't enabled).
+the ``Logger::enabled(level)`` function (but messages will not be
+formatted if the level isn't enabled).
 
 * `Change log <CHANGELOG.rst>`_
 
