@@ -1,4 +1,5 @@
 #include <Arduino.h>
+#include <uuid/common.h>
 #include <uuid/log.h>
 
 class SerialLogHandler: public uuid::log::Receiver {
@@ -28,7 +29,7 @@ public:
 
 static SerialLogHandler log_handler;
 
-void setup2() {
+void setup() {
 	static uuid::log::Logger logger{F("setup")};
 
 	log_handler.start();
@@ -36,9 +37,11 @@ void setup2() {
 	logger.info(F("Application started"));
 }
 
-void loop2() {
+void loop() {
 	static uuid::log::Logger logger{F("loop")};
 	static unsigned int i = 0;
+
+	uuid::loop();
 
 	logger.debug(F("Hello %u World!"), i++);
 
