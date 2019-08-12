@@ -9,6 +9,7 @@ Changed
 
 * The names of ``Message`` data members no longer have trailing
   underscores.
+* Rename log ``Receiver`` type to ``Handler``.
 
 1.0.1_ |--| 2019-08-12
 ----------------------

@@ -23,7 +23,7 @@ Usage
 Create a ``uuid::log::Logger`` and call its functions for logging
 messages.
 
-Create a class that implements ``uuid::log::Receiver`` and registers
-to receive log messages. Output those messages by whatever means is
+Create a class that implements ``uuid::log::Handler`` and registers
+to handle log messages. Output those messages by whatever means is
 appropriate for your application (e.g. serial console, over the WiFi
 network, by email).

@@ -33,7 +33,7 @@ namespace uuid {
 
 namespace log {
 
-std::map<Receiver*,Level> Logger::receivers_;
+std::map<Handler*,Level> Logger::handlers_;
 Level Logger::level_ = Level::OFF;
 
 static const char *pstr_level_uppercase_off __attribute__((__aligned__(sizeof(int)))) PROGMEM = "OFF";
@@ -133,20 +133,20 @@ Logger::Logger(const __FlashStringHelper *name, Facility facility)
 
 };
 
-void Logger::register_receiver(Receiver *receiver, Level level) {
-	receivers_[receiver] = level;
+void Logger::register_handler(Handler *handler, Level level) {
+	handlers_[handler] = level;
 	refresh_log_level();
 };
 
-void Logger::unregister_receiver(Receiver *receiver) {
-	receivers_.erase(receiver);
+void Logger::unregister_handler(Handler *handler) {
+	handlers_.erase(handler);
 	refresh_log_level();
 };
 
-Level Logger::get_log_level(Receiver *receiver) {
-	const auto level = receivers_.find(receiver);
+Level Logger::get_log_level(Handler *handler) {
+	const auto level = handlers_.find(handler);
 
-	if (level != receivers_.end()) {
+	if (level != handlers_.end()) {
 		return level->second;
 	}
 
@@ -396,9 +396,9 @@ void Logger::dispatch(Level level, Facility facility, std::vector<char> &text) {
 	std::shared_ptr<Message> message = std::make_shared<Message>(get_uptime_ms(), level, facility, name_, text.data());
 	text.resize(0);
 
-	for (auto &receiver : receivers_) {
-		if (level <= receiver.second) {
-			receiver.first->add_log_message(message);
+	for (auto &handler : handlers_) {
+		if (level <= handler.second) {
+			handler.first->add_log_message(message);
 		}
 	}
 }
@@ -406,9 +406,9 @@ void Logger::dispatch(Level level, Facility facility, std::vector<char> &text) {
 void Logger::refresh_log_level() {
 	level_ = Level::OFF;
 
-	for (auto &receiver : receivers_) {
-		if (level_ < receiver.second) {
-			level_ = receiver.second;
+	for (auto &handler : handlers_) {
+		if (level_ < handler.second) {
+			level_ = handler.second;
 		}
 	}
 }

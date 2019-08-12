@@ -2,16 +2,16 @@
 #include <uuid/common.h>
 #include <uuid/log.h>
 
-class SerialLogHandler: public uuid::log::Receiver {
+class SerialLogHandler: public uuid::log::Handler {
 public:
 	SerialLogHandler() = default;
 
 	~SerialLogHandler() {
-		uuid::log::Logger::unregister_receiver(this);
+		uuid::log::Logger::unregister_handler(this);
 	};
 
 	void start() {
-		uuid::log::Logger::register_receiver(this, uuid::log::Level::ALL);
+		uuid::log::Logger::register_handler(this, uuid::log::Level::ALL);
 	}
 
 	/*

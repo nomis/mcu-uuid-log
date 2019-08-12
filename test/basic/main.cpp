@@ -23,11 +23,11 @@
 
 #include <uuid/log.h>
 
-class Test: public uuid::log::Receiver {
+class Test: public uuid::log::Handler {
 public:
 	Test() = default;
 	~Test() override {
-		uuid::log::Logger::unregister_receiver(this);
+		uuid::log::Logger::unregister_handler(this);
 	}
 
 	void add_log_message(std::shared_ptr<uuid::log::Message> message) override {
@@ -51,10 +51,10 @@ void test() {
 	Test test2;
 	uuid::log::Logger logger{F("test"), uuid::log::Facility::LOCAL0};
 
-	uuid::log::Logger::register_receiver(&test1, uuid::log::Level::INFO);
+	uuid::log::Logger::register_handler(&test1, uuid::log::Level::INFO);
 	logger.info("Hello, %u World!", 42);
 
-	TEST_ASSERT_TRUE_MESSAGE(test1.message_, "Receiver 1 must have the message");
+	TEST_ASSERT_TRUE_MESSAGE(test1.message_, "Handler 1 must have the message");
 	TEST_ASSERT_EQUAL_UINT64((uint64_t)1, test1.message_->uptime_ms);
 	TEST_ASSERT_EQUAL_INT(uuid::log::Level::INFO, test1.message_->level);
 	TEST_ASSERT_EQUAL_INT(uuid::log::Facility::LOCAL0, test1.message_->facility);
@@ -62,21 +62,21 @@ void test() {
 	TEST_ASSERT_EQUAL_STRING("Hello, 42 World!", test1.message_->text.c_str());
 	TEST_ASSERT_EQUAL_INT(1, test1.message_.use_count());
 
-	TEST_ASSERT_FALSE_MESSAGE(test2.message_, "Receiver 2 must not have the message");
+	TEST_ASSERT_FALSE_MESSAGE(test2.message_, "Handler 2 must not have the message");
 
 	test1.message_.reset();
 
-	uuid::log::Logger::register_receiver(&test1, uuid::log::Level::NOTICE);
+	uuid::log::Logger::register_handler(&test1, uuid::log::Level::NOTICE);
 	logger.info("Hello, %u World!", 42);
 
-	TEST_ASSERT_FALSE_MESSAGE(test1.message_, "Receiver 1 must not have the message");
-	TEST_ASSERT_FALSE_MESSAGE(test2.message_, "Receiver 2 must not have the message");
+	TEST_ASSERT_FALSE_MESSAGE(test1.message_, "Handler 1 must not have the message");
+	TEST_ASSERT_FALSE_MESSAGE(test2.message_, "Handler 2 must not have the message");
 
-	uuid::log::Logger::register_receiver(&test1, uuid::log::Level::ALL);
-	uuid::log::Logger::register_receiver(&test2, uuid::log::Level::DEBUG);
+	uuid::log::Logger::register_handler(&test1, uuid::log::Level::ALL);
+	uuid::log::Logger::register_handler(&test2, uuid::log::Level::DEBUG);
 	logger.info("Hello, %u World!", 42);
 
-	TEST_ASSERT_TRUE_MESSAGE(test1.message_, "Receiver 1 must have the message");
+	TEST_ASSERT_TRUE_MESSAGE(test1.message_, "Handler 1 must have the message");
 	TEST_ASSERT_EQUAL_UINT64((uint64_t)2, test1.message_->uptime_ms);
 	TEST_ASSERT_EQUAL_INT(uuid::log::Level::INFO, test1.message_->level);
 	TEST_ASSERT_EQUAL_INT(uuid::log::Facility::LOCAL0, test1.message_->facility);
@@ -84,7 +84,7 @@ void test() {
 	TEST_ASSERT_EQUAL_STRING("Hello, 42 World!", test1.message_->text.c_str());
 	TEST_ASSERT_EQUAL_INT(2, test1.message_.use_count());
 
-	TEST_ASSERT_TRUE_MESSAGE(test2.message_, "Receiver 2 must have the message");
+	TEST_ASSERT_TRUE_MESSAGE(test2.message_, "Handler 2 must have the message");
 	TEST_ASSERT_EQUAL_UINT64((uint64_t)2, test2.message_->uptime_ms);
 	TEST_ASSERT_EQUAL_INT(uuid::log::Level::INFO, test2.message_->level);
 	TEST_ASSERT_EQUAL_INT(uuid::log::Facility::LOCAL0, test2.message_->facility);
@@ -92,7 +92,7 @@ void test() {
 	TEST_ASSERT_EQUAL_STRING("Hello, 42 World!", test2.message_->text.c_str());
 	TEST_ASSERT_EQUAL_INT(2, test2.message_.use_count());
 
-	TEST_ASSERT_TRUE_MESSAGE(test1.message_.get() == test2.message_.get(), "Message must be shared between receivers");
+	TEST_ASSERT_TRUE_MESSAGE(test1.message_.get() == test2.message_.get(), "Message must be shared between handlers");
 }
 
 int main(int argc, char *argv[]) {

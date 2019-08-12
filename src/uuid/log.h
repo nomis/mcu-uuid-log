@@ -123,7 +123,7 @@ const __FlashStringHelper *format_level_lowercase(Level level);
  * Log message text with timestamp and logger attributes.
  *
  * These will be created when a message is logged and then passed to
- * all registered receivers.
+ * all registered handlers.
  */
 struct Message {
 	/**
@@ -162,7 +162,7 @@ struct Message {
 
 	/**
 	 * Formatted log message text. Does not include any of the other
-	 * message attributes, those must be added by the receiver when
+	 * message attributes, those must be added by the handler when
 	 * outputting messages.
 	 */
 	const std::string text;
@@ -171,9 +171,9 @@ struct Message {
 /**
  * Logger handler used to process log messages.
  */
-class Receiver {
+class Handler {
 public:
-	virtual ~Receiver() = default;
+	virtual ~Handler() = default;
 
 	/**
 	 * Add a new log message. This should normally be put in a queue
@@ -183,12 +183,12 @@ public:
 	 * Queues should have a maximum size and discard the oldest message
 	 * when full.
 	 *
-	 * @param[in] message New log message, shared by all receivers.
+	 * @param[in] message New log message, shared by all handlers.
 	 */
 	virtual void add_log_message(std::shared_ptr<Message> message) = 0;
 
 protected:
-	Receiver() = default;
+	Handler() = default;
 };
 
 /**
@@ -212,46 +212,46 @@ public:
 	~Logger() = default;
 
 	/**
-	 * Register a log receiver. Call again to change the log level.
+	 * Register a log handler. Call again to change the log level.
 	 *
 	 * Do not call this function from a static initializer.
 	 *
-	 * @param[in] receiver Receiver object that will receive log
-	 *                     messages.
-	 * @param[in] level Minimum log level that the receiver is
+	 * @param[in] handler Handler object that will handle log
+	 *                    messages.
+	 * @param[in] level Minimum log level that the handler is
 	 *                  interested in.
 	 */
-	static void register_receiver(Receiver *receiver, Level level);
+	static void register_handler(Handler *handler, Level level);
 
 	/**
-	 * Unregister a log receiver. It is safe to call this with a
-	 * receiver that is not registered.
+	 * Unregister a log handler. It is safe to call this with a
+	 * handler that is not registered.
 	 *
 	 * Do not call this function from a static initializer.
 	 *
-	 * @param[in] receiver Receiver object that will no longer receive
-	 *                     log messages.
+	 * @param[in] handler Handler object that will no longer handle
+	 *                    log messages.
 	 */
-	static void unregister_receiver(Receiver *receiver);
+	static void unregister_handler(Handler *handler);
 
 	/**
-	 * Get the current log level of a receiver. It is safe to call this
-	 * with a receiver that is not registered.
+	 * Get the current log level of a handler. It is safe to call this
+	 * with a handler that is not registered.
 	 *
 	 * Do not call this function from a static initializer.
 	 *
-	 * @param[in] receiver Receiver object that may receive log
-	 *                     messages.
-	 * @return The current log level of the specified receiver.
+	 * @param[in] handler Handler object that may handle log
+	 *                    messages.
+	 * @return The current log level of the specified handler.
 	 */
-	static Level get_log_level(Receiver *receiver);
+	static Level get_log_level(Handler *handler);
 
 	/**
 	 * Determine if the current log level is enabled by any registered
-	 * receivers.
+	 * handlers.
 	 *
 	 * @return The current minimum global log level across all
-	 *         receivers.
+	 *         handlers.
 	 */
 	static inline bool enabled(Level level) { return level <= level_; }
 
@@ -411,7 +411,7 @@ public:
 
 private:
 	/**
-	 * Refresh the minimum global log level across all receivers.
+	 * Refresh the minimum global log level across all handlers.
 	 */
 	static void refresh_log_level();
 
@@ -452,8 +452,8 @@ private:
 	void vlog(Level level, Facility facility, const __FlashStringHelper *format, va_list ap);
 
 	/**
-	 * Dispatch a log message to all receivers that are registered to
-	 * receive messages of the specified level. Automatically sets the
+	 * Dispatch a log message to all handlers that are registered to
+	 * handler messages of the specified level. Automatically sets the
 	 * timestamp of the message to the current system uptime.
 	 *
 	 * @param[in] level Severity level of the message.
@@ -462,8 +462,8 @@ private:
 	 */
 	void dispatch(Level level, Facility facility, std::vector<char> &text);
 
-	static std::map<Receiver*,Level> receivers_; /*<! Registered log receivers. */
-	static Level level_; /*<! Minimum global log level across all receivers. */
+	static std::map<Handler*,Level> handlers_; /*<! Registered log handlers. */
+	static Level level_; /*<! Minimum global log level across all handlers. */
 
 	const __FlashStringHelper *name_; /*!< Logger name (flash string). */
 	const Facility facility_; /*!< Default logging facility for messages. */
