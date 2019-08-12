@@ -1,10 +1,9 @@
 Logging framework
 =================
 
-Provides a framework for handling log messages. This library is
-for single threaded applications and cannot be used from an interrupt
-context (unless you disable interrupts every time you use any of the
-functions in ``uuid::log::Logger``, which would be quite inconvenient).
+Provides a framework for handling log messages. This library is for
+single threaded applications and cannot be used from an interrupt
+context.
 
 There is no option to exclude compilation of debug-level messages, the
 expectation is that these will be disabled at runtime. If your program
