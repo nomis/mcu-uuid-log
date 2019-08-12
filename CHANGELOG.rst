@@ -34,5 +34,5 @@ Added
 .. |--| unicode:: U+2013 .. EN DASH
 
 .. _Unreleased: https://github.com/nomis/mcu-uuid-log/compare/1.0.1...HEAD
-.. _1.0.1: https://github.com/nomis/mcu-uuid-log/commits/1.0.0...1.0.1
+.. _1.0.1: https://github.com/nomis/mcu-uuid-log/compare/1.0.0...1.0.1
 .. _1.0.0: https://github.com/nomis/mcu-uuid-log/commits/1.0.0
