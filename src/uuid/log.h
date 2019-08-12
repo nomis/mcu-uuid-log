@@ -37,7 +37,7 @@ namespace log {
 /**
  * Severity level of log messages.
  */
-enum class Level {
+enum Level : int8_t {
 	OFF = -1, /*!< Meta level representing no log messages. */
 	EMERG = 0, /*!< System is unusable. */
 	ALERT, /*!< Action must be taken immediately. */
@@ -54,7 +54,7 @@ enum class Level {
 /**
  * Facility type of the process logging a message.
  */
-enum class Facility {
+enum Facility : uint8_t {
 	KERN = 0, /*!< Kernel messages. */
 	USER, /*!< User-level messages. */
 	MAIL, /*!< Mail system. */

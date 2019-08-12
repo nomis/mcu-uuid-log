@@ -4,6 +4,11 @@ Change log
 Unreleased_
 -----------
 
+Changed
+~~~~~~~
+
+* The size of the ``Level`` and ``Facility`` enums is now 1 byte.
+
 1.0.0_ |--| 2019-08-11
 ----------------------
 
