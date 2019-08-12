@@ -6,11 +6,11 @@
 		"type": "git",
 		"url": "https://github.com/nomis/mcu-uuid-log.git"
 	},
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"license": "GPL-3.0-or-later",
 	"frameworks": ["arduino"],
 	"dependencies": {
-		"uuid-common": ">=1.0.0"
+		"uuid-common": ">=1.0.0,<2.0.0"
 	},
 	"build": {
 		"flags": "-Wall -Wextra"
