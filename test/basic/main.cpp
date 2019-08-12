@@ -55,11 +55,11 @@ void test() {
 	logger.info("Hello, %u World!", 42);
 
 	TEST_ASSERT_TRUE_MESSAGE(test1.message_, "Receiver 1 must have the message");
-	TEST_ASSERT_EQUAL_UINT64((uint64_t)1, test1.message_->uptime_ms_);
-	TEST_ASSERT_EQUAL_INT(uuid::log::Level::INFO, test1.message_->level_);
-	TEST_ASSERT_EQUAL_INT(uuid::log::Facility::LOCAL0, test1.message_->facility_);
-	TEST_ASSERT_EQUAL_STRING("test", reinterpret_cast<const char *>(test1.message_->name_));
-	TEST_ASSERT_EQUAL_STRING("Hello, 42 World!", test1.message_->text_.c_str());
+	TEST_ASSERT_EQUAL_UINT64((uint64_t)1, test1.message_->uptime_ms);
+	TEST_ASSERT_EQUAL_INT(uuid::log::Level::INFO, test1.message_->level);
+	TEST_ASSERT_EQUAL_INT(uuid::log::Facility::LOCAL0, test1.message_->facility);
+	TEST_ASSERT_EQUAL_STRING("test", reinterpret_cast<const char *>(test1.message_->name));
+	TEST_ASSERT_EQUAL_STRING("Hello, 42 World!", test1.message_->text.c_str());
 	TEST_ASSERT_EQUAL_INT(1, test1.message_.use_count());
 
 	TEST_ASSERT_FALSE_MESSAGE(test2.message_, "Receiver 2 must not have the message");
@@ -77,19 +77,19 @@ void test() {
 	logger.info("Hello, %u World!", 42);
 
 	TEST_ASSERT_TRUE_MESSAGE(test1.message_, "Receiver 1 must have the message");
-	TEST_ASSERT_EQUAL_UINT64((uint64_t)2, test1.message_->uptime_ms_);
-	TEST_ASSERT_EQUAL_INT(uuid::log::Level::INFO, test1.message_->level_);
-	TEST_ASSERT_EQUAL_INT(uuid::log::Facility::LOCAL0, test1.message_->facility_);
-	TEST_ASSERT_EQUAL_STRING("test", reinterpret_cast<const char *>(test1.message_->name_));
-	TEST_ASSERT_EQUAL_STRING("Hello, 42 World!", test1.message_->text_.c_str());
+	TEST_ASSERT_EQUAL_UINT64((uint64_t)2, test1.message_->uptime_ms);
+	TEST_ASSERT_EQUAL_INT(uuid::log::Level::INFO, test1.message_->level);
+	TEST_ASSERT_EQUAL_INT(uuid::log::Facility::LOCAL0, test1.message_->facility);
+	TEST_ASSERT_EQUAL_STRING("test", reinterpret_cast<const char *>(test1.message_->name));
+	TEST_ASSERT_EQUAL_STRING("Hello, 42 World!", test1.message_->text.c_str());
 	TEST_ASSERT_EQUAL_INT(2, test1.message_.use_count());
 
 	TEST_ASSERT_TRUE_MESSAGE(test2.message_, "Receiver 2 must have the message");
-	TEST_ASSERT_EQUAL_UINT64((uint64_t)2, test2.message_->uptime_ms_);
-	TEST_ASSERT_EQUAL_INT(uuid::log::Level::INFO, test2.message_->level_);
-	TEST_ASSERT_EQUAL_INT(uuid::log::Facility::LOCAL0, test2.message_->facility_);
-	TEST_ASSERT_EQUAL_STRING("test", reinterpret_cast<const char *>(test2.message_->name_));
-	TEST_ASSERT_EQUAL_STRING("Hello, 42 World!", test2.message_->text_.c_str());
+	TEST_ASSERT_EQUAL_UINT64((uint64_t)2, test2.message_->uptime_ms);
+	TEST_ASSERT_EQUAL_INT(uuid::log::Level::INFO, test2.message_->level);
+	TEST_ASSERT_EQUAL_INT(uuid::log::Facility::LOCAL0, test2.message_->facility);
+	TEST_ASSERT_EQUAL_STRING("test", reinterpret_cast<const char *>(test2.message_->name));
+	TEST_ASSERT_EQUAL_STRING("Hello, 42 World!", test2.message_->text.c_str());
 	TEST_ASSERT_EQUAL_INT(2, test2.message_.use_count());
 
 	TEST_ASSERT_TRUE_MESSAGE(test1.message_.get() == test2.message_.get(), "Message must be shared between receivers");

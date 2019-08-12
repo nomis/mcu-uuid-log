@@ -4,6 +4,12 @@ Change log
 Unreleased_
 -----------
 
+Changed
+~~~~~~~
+
+* The names of ``Message`` data members no longer have trailing
+  underscores.
+
 1.0.1_ |--| 2019-08-12
 ----------------------
 

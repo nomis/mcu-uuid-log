@@ -20,8 +20,9 @@
 #define UUID_LOG_H_
 
 #include <Arduino.h>
-#include <stdarg.h>
 
+#include <cstdarg>
+#include <cstdint>
 #include <list>
 #include <map>
 #include <memory>
@@ -124,8 +125,7 @@ const __FlashStringHelper *format_level_lowercase(Level level);
  * These will be created when a message is logged and then passed to
  * all registered receivers.
  */
-class Message {
-public:
+struct Message {
 	/**
 	 * Create a new log message (not directly useful).
 	 *
@@ -143,29 +143,29 @@ public:
 	 *
 	 * @see uuid::get_uptime_ms()
 	 */
-	const uint64_t uptime_ms_;
+	const uint64_t uptime_ms;
 
 	/**
 	 * Severity level of the message.
 	 */
-	const Level level_;
+	const Level level;
 
 	/**
 	 * Facility type of the process that logged the message.
 	 */
-	const Facility facility_;
+	const Facility facility;
 
 	/**
 	 * Name of the logger used (flash string).
 	 */
-	const __FlashStringHelper *name_;
+	const __FlashStringHelper *name;
 
 	/**
 	 * Formatted log message text. Does not include any of the other
 	 * message attributes, those must be added by the receiver when
 	 * outputting messages.
 	 */
-	const std::string text_;
+	const std::string text;
 };
 
 /**

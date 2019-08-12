@@ -19,8 +19,9 @@
 #include <uuid/log.h>
 
 #include <Arduino.h>
-#include <stdarg.h>
 
+#include <cstdarg>
+#include <cstdint>
 #include <list>
 #include <map>
 #include <memory>
@@ -124,7 +125,7 @@ const __FlashStringHelper *format_level_lowercase(Level level) {
 }
 
 Message::Message(uint64_t uptime_ms, Level level, Facility facility, const __FlashStringHelper *name, const std::string &&text)
-		: uptime_ms_(uptime_ms), level_(level), facility_(facility), name_(name), text_(std::move(text)) {
+		: uptime_ms(uptime_ms), level(level), facility(facility), name(name), text(std::move(text)) {
 }
 
 Logger::Logger(const __FlashStringHelper *name, Facility facility)

@@ -21,9 +21,9 @@ public:
 	 */
 	void add_log_message(std::shared_ptr<uuid::log::Message> message) {
 		Serial.printf_P(PSTR("%s %c [%S] %s\r\n"),
-				uuid::log::format_timestamp_ms(message->uptime_ms_, 3).c_str(),
-				uuid::log::format_level_char(message->level_),
-				message->name_, message->text_.c_str());
+				uuid::log::format_timestamp_ms(message->uptime_ms, 3).c_str(),
+				uuid::log::format_level_char(message->level),
+				message->name, message->text.c_str());
 	}
 };
 
