@@ -9,6 +9,12 @@ Changed
 
 * The size of the ``Level`` and ``Facility`` enums is now 1 byte.
 
+Fixed
+~~~~~
+
+* The width of the days part when formatting uptimes now has an upper
+  bound of 10 instead of a lower bound of 10.
+
 1.0.0_ |--| 2019-08-11
 ----------------------
 
