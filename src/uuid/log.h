@@ -185,7 +185,7 @@ public:
 	 *
 	 * @param[in] message New log message, shared by all handlers.
 	 */
-	virtual void add_log_message(std::shared_ptr<Message> message) = 0;
+	virtual void operator<<(std::shared_ptr<Message> message) = 0;
 
 protected:
 	Handler() = default;

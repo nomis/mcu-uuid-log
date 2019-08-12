@@ -30,7 +30,7 @@ public:
 		uuid::log::Logger::unregister_handler(this);
 	}
 
-	void add_log_message(std::shared_ptr<uuid::log::Message> message) override {
+	void operator<<(std::shared_ptr<uuid::log::Message> message) override {
 		message_ = message;
 	}
 

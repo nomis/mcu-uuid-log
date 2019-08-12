@@ -398,7 +398,7 @@ void Logger::dispatch(Level level, Facility facility, std::vector<char> &text) {
 
 	for (auto &handler : handlers_) {
 		if (level <= handler.second) {
-			handler.first->add_log_message(message);
+			*handler.first << message;
 		}
 	}
 }

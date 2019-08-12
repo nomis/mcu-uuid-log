@@ -10,6 +10,8 @@ Changed
 * The names of ``Message`` data members no longer have trailing
   underscores.
 * Rename log ``Receiver`` type to ``Handler``.
+* Use operator ``<<`` instead of ``add_log_message()`` as the interface
+  for log handlers.
 
 1.0.1_ |--| 2019-08-12
 ----------------------
