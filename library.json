@@ -13,6 +13,13 @@
 		"uuid-common": "^1.0.0"
 	},
 	"build": {
-		"flags": "-Wall -Wextra"
+		"flags": "-Wall -Wextra",
+		"srcFilter": [
+			"+<*>",
+			"-<.git/>",
+			"-<examples/>",
+			"-<mock_include/>",
+			"-<test/>"
+		]
 	}
 }
