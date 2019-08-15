@@ -92,34 +92,34 @@ char format_level_char(Level level) {
 
 const __FlashStringHelper *format_level_uppercase(Level level) {
 	const __FlashStringHelper *log_level_uppercase[(int)Level::ALL - (int)Level::OFF + 1] = {
-			FPSTR(pstr_level_uppercase_off),
-			FPSTR(pstr_level_uppercase_emerg),
-			FPSTR(pstr_level_uppercase_crit),
-			FPSTR(pstr_level_uppercase_alert),
-			FPSTR(pstr_level_uppercase_err),
-			FPSTR(pstr_level_uppercase_warning),
-			FPSTR(pstr_level_uppercase_notice),
-			FPSTR(pstr_level_uppercase_info),
-			FPSTR(pstr_level_uppercase_debug),
-			FPSTR(pstr_level_uppercase_trace),
-			FPSTR(pstr_level_uppercase_all)
+			reinterpret_cast<const __FlashStringHelper *>(pstr_level_uppercase_off),
+			reinterpret_cast<const __FlashStringHelper *>(pstr_level_uppercase_emerg),
+			reinterpret_cast<const __FlashStringHelper *>(pstr_level_uppercase_crit),
+			reinterpret_cast<const __FlashStringHelper *>(pstr_level_uppercase_alert),
+			reinterpret_cast<const __FlashStringHelper *>(pstr_level_uppercase_err),
+			reinterpret_cast<const __FlashStringHelper *>(pstr_level_uppercase_warning),
+			reinterpret_cast<const __FlashStringHelper *>(pstr_level_uppercase_notice),
+			reinterpret_cast<const __FlashStringHelper *>(pstr_level_uppercase_info),
+			reinterpret_cast<const __FlashStringHelper *>(pstr_level_uppercase_debug),
+			reinterpret_cast<const __FlashStringHelper *>(pstr_level_uppercase_trace),
+			reinterpret_cast<const __FlashStringHelper *>(pstr_level_uppercase_all)
 	};
 	return log_level_uppercase[(int)level + 1];
 }
 
 const __FlashStringHelper *format_level_lowercase(Level level) {
 	const __FlashStringHelper *log_level_lowercase[(int)Level::ALL - (int)Level::OFF + 1] = {
-			FPSTR(pstr_level_lowercase_off),
-			FPSTR(pstr_level_lowercase_emerg),
-			FPSTR(pstr_level_lowercase_crit),
-			FPSTR(pstr_level_lowercase_alert),
-			FPSTR(pstr_level_lowercase_err),
-			FPSTR(pstr_level_lowercase_warning),
-			FPSTR(pstr_level_lowercase_notice),
-			FPSTR(pstr_level_lowercase_info),
-			FPSTR(pstr_level_lowercase_debug),
-			FPSTR(pstr_level_lowercase_trace),
-			FPSTR(pstr_level_lowercase_all)
+			reinterpret_cast<const __FlashStringHelper *>(pstr_level_lowercase_off),
+			reinterpret_cast<const __FlashStringHelper *>(pstr_level_lowercase_emerg),
+			reinterpret_cast<const __FlashStringHelper *>(pstr_level_lowercase_crit),
+			reinterpret_cast<const __FlashStringHelper *>(pstr_level_lowercase_alert),
+			reinterpret_cast<const __FlashStringHelper *>(pstr_level_lowercase_err),
+			reinterpret_cast<const __FlashStringHelper *>(pstr_level_lowercase_warning),
+			reinterpret_cast<const __FlashStringHelper *>(pstr_level_lowercase_notice),
+			reinterpret_cast<const __FlashStringHelper *>(pstr_level_lowercase_info),
+			reinterpret_cast<const __FlashStringHelper *>(pstr_level_lowercase_debug),
+			reinterpret_cast<const __FlashStringHelper *>(pstr_level_lowercase_trace),
+			reinterpret_cast<const __FlashStringHelper *>(pstr_level_lowercase_all)
 	};
 	return log_level_lowercase[(int)level + 1];
 }

@@ -4,6 +4,12 @@ Change log
 Unreleased_
 -----------
 
+Fixed
+~~~~~
+
+* Workaround incorrect definition of ``FPSTR()`` on ESP32
+  (`#1371 <https://github.com/espressif/arduino-esp32/issues/1371>`_).
+
 2.0.0_ |--| 2019-08-12
 ----------------------
 
