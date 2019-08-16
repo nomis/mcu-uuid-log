@@ -6,19 +6,22 @@
 		"type": "git",
 		"url": "https://github.com/nomis/mcu-uuid-log.git"
 	},
-	"version": "2.0.0",
+	"version": "2.0.1",
 	"license": "GPL-3.0-or-later",
 	"export": {
 		"exclude": [
-			"mock_include/*",
+			".travis.yml",
 			"test/*"
 		]
 	},
-	"frameworks": ["arduino"],
+	"frameworks": [
+		"arduino"
+	],
 	"dependencies": {
 		"uuid-common": "^1.0.0"
 	},
 	"build": {
-		"flags": "-Wall -Wextra"
+		"flags": "-Wall -Wextra",
+		"libLDFMode": "off"
 	}
 }
