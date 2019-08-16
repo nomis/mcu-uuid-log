@@ -1,5 +1,5 @@
-Logging framework
-=================
+Logging framework |Build Status|
+================================
 
 Provides a framework for handling log messages. This library is for
 single threaded applications and cannot be used from an interrupt
@@ -26,3 +26,6 @@ Create a class that implements ``uuid::log::Handler`` and registers
 to handle log messages. Output those messages by whatever means is
 appropriate for your application (e.g. serial console, over the WiFi
 network, by email).
+
+.. |Build Status| image:: https://travis-ci.org/nomis/mcu-uuid-log.svg?branch=master
+   :target: https://travis-ci.org/nomis/mcu-uuid-log

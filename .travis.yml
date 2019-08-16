@@ -1,0 +1,21 @@
+dist: bionic
+language: python
+python:
+  - "3.7"
+
+sudo: false
+cache:
+  directories:
+    - "~/.platformio"
+
+install:
+  - pip3 install -U platformio
+  - platformio update
+
+script:
+  - make -C test
+
+notifications:
+  email:
+    recipients:
+      - secure: "fijWSCeJ7Smdr8scMQJsBVCo1eOIJU0XxdzEF25jjqvFzlsxUmkQ5UQA7akQVsU8F+oh9vzCeOWFWY3x0OroHBZ8cTpUsL4zN2oBUnM0lttRylZtjuCKDDrt+rJyoHusyp8/rsIZFZEa/SNGwvClDl+DDGsnI9hN1+3akYLBxXrRZvPFpFzoEIrTKJHFbJyfZ3oMcpo/4ZLEIPU85G9/1EukRxM0sy/JPq1GaqQkr+5K8EOwpjJu1S7YgMcr24DgbLgeINGJ/X+tHl8yfrN1K0oSqrpLnpGjGkQVh4Tpst9d+SZAb1HxqbgrFghiFETVLGqI/SgRD7bU/dwwspzVKXOG1rGMDaIO2M+nbQFo2WfSYtpow2zDx3zlVzum7+ZHuox86KEBieQGS2c82d7lbUrjgfLFMhYjaGVlFZRlFu/KwEwVK2oRSw/NpFDL7bWeMFKgHd/T9+J9utnB1r46X4u6sVWM2Rv/hwzeO16M2rDuFsTXLx2tcWpTkm+fGU9v8uu9Hf+vlOhAu/AdVeB7Ta38XFeIcLvL/EoJpX8NB6IAmVuxdUTFZwLyvoW3TmGhsnFroyi/WACdO9+io1ck9+HsVx0cXJXG58VfU6bWkHWrfUF5VMU/N9dmzHoxnALBvrdLTGcNNVddGeNCSXEYO32NMTc4oRyhCzGn8DdTokg="
