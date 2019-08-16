@@ -9,6 +9,9 @@ Fixed
 
 * Workaround incorrect definition of ``FPSTR()`` on ESP32
   (`#1371 <https://github.com/espressif/arduino-esp32/issues/1371>`_).
+* Remove use of ``Serial.printf_P()`` from the example (which does not
+  exist in the standard Arduino library).
+* Add missing ``Serial.begin()`` to the example.
 
 2.0.0_ |--| 2019-08-12
 ----------------------

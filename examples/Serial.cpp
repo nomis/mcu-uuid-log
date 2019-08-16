@@ -20,10 +20,16 @@ public:
 	 * queued for later output when the application is less busy.
 	 */
 	void operator<<(std::shared_ptr<uuid::log::Message> message) {
-		Serial.printf_P(PSTR("%s %c [%S] %s\r\n"),
+		char temp[100] = { 0 };
+
+		int ret = snprintf_P(temp, sizeof(temp), PSTR("%s %c [%S] %s\r\n"),
 			uuid::log::format_timestamp_ms(message->uptime_ms).c_str(),
 			uuid::log::format_level_char(message->level),
 			message->name, message->text.c_str());
+
+		if (ret > 0) {
+			Serial.print(temp);
+		}
 	}
 };
 
@@ -31,6 +37,8 @@ static SerialLogHandler log_handler;
 
 void setup() {
 	static uuid::log::Logger logger{F("setup")};
+
+	Serial.begin(115200);
 
 	log_handler.start();
 
