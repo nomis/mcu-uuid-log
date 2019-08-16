@@ -4,6 +4,11 @@ Change log
 Unreleased_
 -----------
 
+2.0.1_ |--| 2019-08-16
+----------------------
+
+Fix ESP32 builds and the example.
+
 Fixed
 ~~~~~
 
@@ -56,7 +61,8 @@ Added
 
 .. |--| unicode:: U+2013 .. EN DASH
 
-.. _Unreleased: https://github.com/nomis/mcu-uuid-log/compare/2.0.0...HEAD
+.. _Unreleased: https://github.com/nomis/mcu-uuid-log/compare/2.0.1...HEAD
+.. _2.0.1: https://github.com/nomis/mcu-uuid-log/compare/2.0.0...2.0.1
 .. _2.0.0: https://github.com/nomis/mcu-uuid-log/compare/1.0.1...2.0.0
 .. _1.0.1: https://github.com/nomis/mcu-uuid-log/compare/1.0.0...1.0.1
 .. _1.0.0: https://github.com/nomis/mcu-uuid-log/commits/1.0.0
