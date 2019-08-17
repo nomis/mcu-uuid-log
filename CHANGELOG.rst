@@ -4,6 +4,11 @@ Change log
 Unreleased_
 -----------
 
+2.0.3_ |--| 2019-08-17
+----------------------
+
+Make ``get_log_level()`` accept a ``const Handler``.
+
 Fixed
 ~~~~~
 
@@ -76,7 +81,8 @@ Added
 
 .. |--| unicode:: U+2013 .. EN DASH
 
-.. _Unreleased: https://github.com/nomis/mcu-uuid-log/compare/2.0.2...HEAD
+.. _Unreleased: https://github.com/nomis/mcu-uuid-log/compare/2.0.3...HEAD
+.. _2.0.3: https://github.com/nomis/mcu-uuid-log/compare/2.0.2...2.0.3
 .. _2.0.2: https://github.com/nomis/mcu-uuid-log/compare/2.0.1...2.0.2
 .. _2.0.1: https://github.com/nomis/mcu-uuid-log/compare/2.0.0...2.0.1
 .. _2.0.0: https://github.com/nomis/mcu-uuid-log/compare/1.0.1...2.0.0
