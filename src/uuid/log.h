@@ -254,7 +254,7 @@ public:
 	 *                    messages.
 	 * @return The current log level of the specified handler.
 	 */
-	static Level get_log_level(Handler *handler);
+	static Level get_log_level(const Handler *handler);
 
 	/**
 	 * Determine if the current log level is enabled by any registered

@@ -143,8 +143,8 @@ void Logger::unregister_handler(Handler *handler) {
 	refresh_log_level();
 };
 
-Level Logger::get_log_level(Handler *handler) {
-	const auto level = handlers_.find(handler);
+Level Logger::get_log_level(const Handler *handler) {
+	const auto level = handlers_.find(const_cast<Handler*>(handler));
 
 	if (level != handlers_.end()) {
 		return level->second;

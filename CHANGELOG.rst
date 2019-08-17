@@ -4,6 +4,11 @@ Change log
 Unreleased_
 -----------
 
+Fixed
+~~~~~
+
+* Make ``get_log_level()`` accept a ``const Handler``.
+
 2.0.2_ |--| 2019-08-17
 ----------------------
 
