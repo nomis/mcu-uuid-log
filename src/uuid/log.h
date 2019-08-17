@@ -83,8 +83,9 @@ enum Facility : uint8_t {
 };
 
 /**
- * Format a system uptime timestamp as a string using the format
- * "d+HH:mm:ss.SSS" with leading zeros for the days.
+ * Format a system uptime timestamp as a string.
+ *
+ * Using the format "d+HH:mm:ss.SSS" with leading zeros for the days.
  *
  * @param[in] System uptime in milliseconds, see uuid::get_uptime_ms().
  * @param[in] Leading zeros for the days part of the output.
@@ -161,9 +162,10 @@ struct Message {
 	const __FlashStringHelper *name;
 
 	/**
-	 * Formatted log message text. Does not include any of the other
-	 * message attributes, those must be added by the handler when
-	 * outputting messages.
+	 * Formatted log message text.
+	 *
+	 * Does not include any of the other message attributes, those must
+	 * be added by the handler when outputting messages.
 	 */
 	const std::string text;
 };
@@ -176,9 +178,11 @@ public:
 	virtual ~Handler() = default;
 
 	/**
-	 * Add a new log message. This should normally be put in a queue
-	 * instead of being processed immediately so that log messages have
-	 * minimal impact at the time of use.
+	 * Add a new log message.
+	 *
+	 * This should normally be put in a queue instead of being
+	 * processed immediately so that log messages have minimal impact
+	 * at the time of use.
 	 *
 	 * Queues should have a maximum size and discard the oldest message
 	 * when full.
@@ -197,8 +201,10 @@ protected:
 class Logger {
 public:
 	/**
-	 * This is the maximum length of any log message and determines the
-	 * size of the buffer used for format string printing.
+	 * This is the maximum length of any log message.
+	 *
+	 * Determines the size of the buffer used for format string
+	 * printing.
 	 */
 	static constexpr size_t MAX_LOG_LENGTH = 255;
 
@@ -212,7 +218,9 @@ public:
 	~Logger() = default;
 
 	/**
-	 * Register a log handler. Call again to change the log level.
+	 * Register a log handler.
+	 *
+	 * Call again to change the log level.
 	 *
 	 * Do not call this function from a static initializer.
 	 *
@@ -224,8 +232,9 @@ public:
 	static void register_handler(Handler *handler, Level level);
 
 	/**
-	 * Unregister a log handler. It is safe to call this with a
-	 * handler that is not registered.
+	 * Unregister a log handler.
+	 *
+	 * It is safe to call this with a handler that is not registered.
 	 *
 	 * Do not call this function from a static initializer.
 	 *
@@ -235,8 +244,9 @@ public:
 	static void unregister_handler(Handler *handler);
 
 	/**
-	 * Get the current log level of a handler. It is safe to call this
-	 * with a handler that is not registered.
+	 * Get the current log level of a handler.
+	 *
+	 * It is safe to call this with a handler that is not registered.
 	 *
 	 * Do not call this function from a static initializer.
 	 *
@@ -453,8 +463,10 @@ private:
 
 	/**
 	 * Dispatch a log message to all handlers that are registered to
-	 * handler messages of the specified level. Automatically sets the
-	 * timestamp of the message to the current system uptime.
+	 * handle messages of the specified level.
+	 *
+	 * Automatically sets the timestamp of the message to the current
+	 * system uptime.
 	 *
 	 * @param[in] level Severity level of the message.
 	 * @param[in] facility Facility type of the process logging the message.
