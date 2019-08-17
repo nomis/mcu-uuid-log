@@ -261,14 +261,14 @@ public:
 	 * @param[in] format Format string.
 	 * @param[in] ... Format string arguments.
 	 */
-	void emerg(const char *format, ...) /* __attribute__((format (printf, 2, 3))) */;
+	void emerg(const char *format, ...) const /* __attribute__((format (printf, 2, 3))) */;
 	/**
 	 * Log a message at level Level::EMERG.
 	 *
 	 * @param[in] format Format string (flash string).
 	 * @param[in] ... Format string arguments.
 	 */
-	void emerg(const __FlashStringHelper *format, ...) /* __attribute__((format (printf, 2, 3))) */;
+	void emerg(const __FlashStringHelper *format, ...) const /* __attribute__((format (printf, 2, 3))) */;
 
 	/**
 	 * Log a message at level Level::ALERT.
@@ -276,14 +276,14 @@ public:
 	 * @param[in] format Format string.
 	 * @param[in] ... Format string arguments.
 	 */
-	void alert(const char *format, ...) /* __attribute__((format (printf, 2, 3))) */;
+	void alert(const char *format, ...) const /* __attribute__((format (printf, 2, 3))) */;
 	/**
 	 * Log a message at level Level::ALERT.
 	 *
 	 * @param[in] format Format string (flash string).
 	 * @param[in] ... Format string arguments.
 	 */
-	void alert(const __FlashStringHelper *format, ...) /* __attribute__((format (printf, 2, 3))) */;
+	void alert(const __FlashStringHelper *format, ...) const /* __attribute__((format (printf, 2, 3))) */;
 
 	/**
 	 * Log a message at level Level::CRIT.
@@ -291,14 +291,14 @@ public:
 	 * @param[in] format Format string.
 	 * @param[in] ... Format string arguments.
 	 */
-	void crit(const char *format, ...) /* __attribute__((format (printf, 2, 3))) */;
+	void crit(const char *format, ...) const /* __attribute__((format (printf, 2, 3))) */;
 	/**
 	 * Log a message at level Level::CRIT.
 	 *
 	 * @param[in] format Format string (flash string).
 	 * @param[in] ... Format string arguments.
 	 */
-	void crit(const __FlashStringHelper *format, ...) /* __attribute__((format (printf, 2, 3))) */;
+	void crit(const __FlashStringHelper *format, ...) const /* __attribute__((format (printf, 2, 3))) */;
 
 	/**
 	 * Log a message at level Level::ERR.
@@ -306,14 +306,14 @@ public:
 	 * @param[in] format Format string.
 	 * @param[in] ... Format string arguments.
 	 */
-	void err(const char *format, ...) /* __attribute__((format (printf, 2, 3))) */;
+	void err(const char *format, ...) const /* __attribute__((format (printf, 2, 3))) */;
 	/**
 	 * Log a message at level Level::ERR.
 	 *
 	 * @param[in] format Format string (flash string).
 	 * @param[in] ... Format string arguments.
 	 */
-	void err(const __FlashStringHelper *format, ...) /* __attribute__((format (printf, 2, 3))) */;
+	void err(const __FlashStringHelper *format, ...) const /* __attribute__((format (printf, 2, 3))) */;
 
 	/**
 	 * Log a message at level Level::WARNING.
@@ -321,14 +321,14 @@ public:
 	 * @param[in] format Format string.
 	 * @param[in] ... Format string arguments.
 	 */
-	void warning(const char *format, ...) /* __attribute__((format (printf, 2, 3))) */;
+	void warning(const char *format, ...) const /* __attribute__((format (printf, 2, 3))) */;
 	/**
 	 * Log a message at level Level::WARNING.
 	 *
 	 * @param[in] format Format string (flash string).
 	 * @param[in] ... Format string arguments.
 	 */
-	void warning(const __FlashStringHelper *format, ...) /* __attribute__((format (printf, 2, 3))) */;
+	void warning(const __FlashStringHelper *format, ...) const /* __attribute__((format (printf, 2, 3))) */;
 
 	/**
 	 * Log a message at level Level::NOTICE.
@@ -336,14 +336,14 @@ public:
 	 * @param[in] format Format string.
 	 * @param[in] ... Format string arguments.
 	 */
-	void notice(const char *format, ...) /* __attribute__((format (printf, 2, 3))) */;
+	void notice(const char *format, ...) const /* __attribute__((format (printf, 2, 3))) */;
 	/**
 	 * Log a message at level Level::NOTICE.
 	 *
 	 * @param[in] format Format string (flash string).
 	 * @param[in] ... Format string arguments.
 	 */
-	void notice(const __FlashStringHelper *format, ...) /* __attribute__((format (printf, 2, 3))) */;
+	void notice(const __FlashStringHelper *format, ...) const /* __attribute__((format (printf, 2, 3))) */;
 
 	/**
 	 * Log a message at level Level::INFO.
@@ -351,14 +351,14 @@ public:
 	 * @param[in] format Format string.
 	 * @param[in] ... Format string arguments.
 	 */
-	void info(const char *format, ...) /* __attribute__((format (printf, 2, 3))) */;
+	void info(const char *format, ...) const /* __attribute__((format (printf, 2, 3))) */;
 	/**
 	 * Log a message at level Level::INFO.
 	 *
 	 * @param[in] format Format string (flash string).
 	 * @param[in] ... Format string arguments.
 	 */
-	void info(const __FlashStringHelper *format, ...) /* __attribute__((format (printf, 2, 3))) */;
+	void info(const __FlashStringHelper *format, ...) const /* __attribute__((format (printf, 2, 3))) */;
 
 	/**
 	 * Log a message at level Level::DEBUG.
@@ -366,14 +366,14 @@ public:
 	 * @param[in] format Format string.
 	 * @param[in] ... Format string arguments.
 	 */
-	void debug(const char *format, ...) /* __attribute__((format (printf, 2, 3))) */;
+	void debug(const char *format, ...) const /* __attribute__((format (printf, 2, 3))) */;
 	/**
 	 * Log a message at level Level::DEBUG.
 	 *
 	 * @param[in] format Format string (flash string).
 	 * @param[in] ... Format string arguments.
 	 */
-	void debug(const __FlashStringHelper *format, ...) /* __attribute__((format (printf, 2, 3))) */;
+	void debug(const __FlashStringHelper *format, ...) const /* __attribute__((format (printf, 2, 3))) */;
 
 	/**
 	 * Log a message at level Level::TRACE.
@@ -381,14 +381,14 @@ public:
 	 * @param[in] format Format string.
 	 * @param[in] ... Format string arguments.
 	 */
-	void trace(const char *format, ...) /* __attribute__((format (printf, 2, 3))) */;
+	void trace(const char *format, ...) const /* __attribute__((format (printf, 2, 3))) */;
 	/**
 	 * Log a message at level Level::TRACE.
 	 *
 	 * @param[in] format Format string (flash string).
 	 * @param[in] ... Format string arguments.
 	 */
-	void trace(const __FlashStringHelper *format, ...) /* __attribute__((format (printf, 2, 3))) */;
+	void trace(const __FlashStringHelper *format, ...) const /* __attribute__((format (printf, 2, 3))) */;
 
 	/**
 	 * Log a message with a custom facility.
@@ -398,7 +398,7 @@ public:
 	 * @param[in] format Format string.
 	 * @param[in] ... Format string arguments.
 	 */
-	void log(Level level, Facility facility, const char *format, ...) /* __attribute__((format (printf, 3, 4))) */;
+	void log(Level level, Facility facility, const char *format, ...) const /* __attribute__((format (printf, 3, 4))) */;
 	/**
 	 * Log a message with a custom facility.
 	 *
@@ -407,7 +407,7 @@ public:
 	 * @param[in] format Format string (flash string).
 	 * @param[in] ... Format string arguments.
 	 */
-	void log(Level level, Facility facility, const __FlashStringHelper *format, ...) /* __attribute__((format (printf, 4, 5))) */;
+	void log(Level level, Facility facility, const __FlashStringHelper *format, ...) const /* __attribute__((format (printf, 4, 5))) */;
 
 private:
 	/**
@@ -422,7 +422,7 @@ private:
 	 * @param[in] format Format string.
 	 * @param[in] ap Variable arguments pointer for format string.
 	 */
-	void vlog(Level level, const char *format, va_list ap);
+	void vlog(Level level, const char *format, va_list ap) const;
 	/**
 	 * Log a message at the specified level.
 	 *
@@ -430,7 +430,7 @@ private:
 	 * @param[in] format Format string (flash string).
 	 * @param[in] ap Variable arguments pointer for format string.
 	 */
-	void vlog(Level level, const __FlashStringHelper *format, va_list ap);
+	void vlog(Level level, const __FlashStringHelper *format, va_list ap) const;
 
 	/**
 	 * Log a message at the specified level and facility.
@@ -440,7 +440,7 @@ private:
 	 * @param[in] format Format string.
 	 * @param[in] ap Variable arguments pointer for format string.
 	 */
-	void vlog(Level level, Facility facility, const char *format, va_list ap);
+	void vlog(Level level, Facility facility, const char *format, va_list ap) const;
 	/**
 	 * Log a message at the specified level and facility.
 	 *
@@ -449,7 +449,7 @@ private:
 	 * @param[in] format Format string (flash string).
 	 * @param[in] ap Variable arguments pointer for format string.
 	 */
-	void vlog(Level level, Facility facility, const __FlashStringHelper *format, va_list ap);
+	void vlog(Level level, Facility facility, const __FlashStringHelper *format, va_list ap) const;
 
 	/**
 	 * Dispatch a log message to all handlers that are registered to
@@ -460,7 +460,7 @@ private:
 	 * @param[in] facility Facility type of the process logging the message.
 	 * @param[in] text Log message text.
 	 */
-	void dispatch(Level level, Facility facility, std::vector<char> &text);
+	void dispatch(Level level, Facility facility, std::vector<char> &text) const;
 
 	static std::map<Handler*,Level> handlers_; /*<! Registered log handlers. */
 	static Level level_; /*<! Minimum global log level across all handlers. */

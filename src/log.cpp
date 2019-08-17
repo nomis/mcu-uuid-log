@@ -153,7 +153,7 @@ Level Logger::get_log_level(Handler *handler) {
 	return Level::OFF;
 }
 
-void Logger::emerg(const char *format, ...) {
+void Logger::emerg(const char *format, ...) const {
 	if (enabled(Level::EMERG)) {
 		va_list ap;
 
@@ -163,7 +163,7 @@ void Logger::emerg(const char *format, ...) {
 	}
 };
 
-void Logger::emerg(const __FlashStringHelper *format, ...) {
+void Logger::emerg(const __FlashStringHelper *format, ...) const {
 	if (enabled(Level::EMERG)) {
 		va_list ap;
 
@@ -173,7 +173,7 @@ void Logger::emerg(const __FlashStringHelper *format, ...) {
 	}
 };
 
-void Logger::crit(const char *format, ...) {
+void Logger::crit(const char *format, ...) const {
 	if (enabled(Level::CRIT)) {
 		va_list ap;
 
@@ -183,7 +183,7 @@ void Logger::crit(const char *format, ...) {
 	}
 };
 
-void Logger::crit(const __FlashStringHelper *format, ...) {
+void Logger::crit(const __FlashStringHelper *format, ...) const {
 	if (enabled(Level::CRIT)) {
 		va_list ap;
 
@@ -193,7 +193,7 @@ void Logger::crit(const __FlashStringHelper *format, ...) {
 	}
 };
 
-void Logger::alert(const char *format, ...) {
+void Logger::alert(const char *format, ...) const {
 	if (enabled(Level::ALERT)) {
 		va_list ap;
 
@@ -203,7 +203,7 @@ void Logger::alert(const char *format, ...) {
 	}
 };
 
-void Logger::alert(const __FlashStringHelper *format, ...) {
+void Logger::alert(const __FlashStringHelper *format, ...) const {
 	if (enabled(Level::ALERT)) {
 		va_list ap;
 
@@ -212,7 +212,7 @@ void Logger::alert(const __FlashStringHelper *format, ...) {
 		va_end(ap);
 	}
 };
-void Logger::err(const char *format, ...) {
+void Logger::err(const char *format, ...) const {
 	if (enabled(Level::ERR)) {
 		va_list ap;
 
@@ -222,7 +222,7 @@ void Logger::err(const char *format, ...) {
 	}
 };
 
-void Logger::err(const __FlashStringHelper *format, ...) {
+void Logger::err(const __FlashStringHelper *format, ...) const {
 	if (enabled(Level::ERR)) {
 		va_list ap;
 
@@ -232,7 +232,7 @@ void Logger::err(const __FlashStringHelper *format, ...) {
 	}
 };
 
-void Logger::warning(const char *format, ...) {
+void Logger::warning(const char *format, ...) const {
 	if (enabled(Level::WARNING)) {
 		va_list ap;
 
@@ -242,7 +242,7 @@ void Logger::warning(const char *format, ...) {
 	}
 };
 
-void Logger::warning(const __FlashStringHelper *format, ...) {
+void Logger::warning(const __FlashStringHelper *format, ...) const {
 	if (enabled(Level::WARNING)) {
 		va_list ap;
 
@@ -252,7 +252,7 @@ void Logger::warning(const __FlashStringHelper *format, ...) {
 	}
 };
 
-void Logger::notice(const char *format, ...) {
+void Logger::notice(const char *format, ...) const {
 	if (enabled(Level::NOTICE)) {
 		va_list ap;
 
@@ -262,7 +262,7 @@ void Logger::notice(const char *format, ...) {
 	}
 };
 
-void Logger::notice(const __FlashStringHelper *format, ...) {
+void Logger::notice(const __FlashStringHelper *format, ...) const {
 	if (enabled(Level::NOTICE)) {
 		va_list ap;
 
@@ -272,7 +272,7 @@ void Logger::notice(const __FlashStringHelper *format, ...) {
 	}
 };
 
-void Logger::info(const char *format, ...) {
+void Logger::info(const char *format, ...) const {
 	if (enabled(Level::INFO)) {
 		va_list ap;
 
@@ -282,7 +282,7 @@ void Logger::info(const char *format, ...) {
 	}
 };
 
-void Logger::info(const __FlashStringHelper *format, ...) {
+void Logger::info(const __FlashStringHelper *format, ...) const {
 	if (enabled(Level::INFO)) {
 		va_list ap;
 
@@ -292,7 +292,7 @@ void Logger::info(const __FlashStringHelper *format, ...) {
 	}
 };
 
-void Logger::debug(const char *format, ...) {
+void Logger::debug(const char *format, ...) const {
 	if (enabled(Level::DEBUG)) {
 		va_list ap;
 
@@ -302,7 +302,7 @@ void Logger::debug(const char *format, ...) {
 	}
 };
 
-void Logger::debug(const __FlashStringHelper *format, ...) {
+void Logger::debug(const __FlashStringHelper *format, ...) const {
 	if (enabled(Level::DEBUG)) {
 		va_list ap;
 
@@ -312,7 +312,7 @@ void Logger::debug(const __FlashStringHelper *format, ...) {
 	}
 };
 
-void Logger::trace(const char *format, ...) {
+void Logger::trace(const char *format, ...) const {
 	if (enabled(Level::TRACE)) {
 		va_list ap;
 
@@ -322,7 +322,7 @@ void Logger::trace(const char *format, ...) {
 	}
 };
 
-void Logger::trace(const __FlashStringHelper *format, ...) {
+void Logger::trace(const __FlashStringHelper *format, ...) const {
 	if (enabled(Level::TRACE)) {
 		va_list ap;
 
@@ -332,7 +332,7 @@ void Logger::trace(const __FlashStringHelper *format, ...) {
 	}
 };
 
-void Logger::log(Level level, Facility facility, const char *format, ...) {
+void Logger::log(Level level, Facility facility, const char *format, ...) const {
 	if (level < Level::EMERG) {
 		level = Level::EMERG;
 	} else if (level > Level::TRACE) {
@@ -348,7 +348,7 @@ void Logger::log(Level level, Facility facility, const char *format, ...) {
 	}
 };
 
-void Logger::log(Level level, Facility facility, const __FlashStringHelper *format, ...) {
+void Logger::log(Level level, Facility facility, const __FlashStringHelper *format, ...) const {
 	if (level < Level::EMERG) {
 		level = Level::EMERG;
 	} else if (level > Level::TRACE) {
@@ -364,11 +364,11 @@ void Logger::log(Level level, Facility facility, const __FlashStringHelper *form
 	}
 };
 
-void Logger::vlog(Level level, const char *format, va_list ap) {
+void Logger::vlog(Level level, const char *format, va_list ap) const {
 	vlog(level, facility_, format, ap);
 }
 
-void Logger::vlog(Level level, Facility facility, const char *format, va_list ap) {
+void Logger::vlog(Level level, Facility facility, const char *format, va_list ap) const {
 	std::vector<char> text(MAX_LOG_LENGTH + 1);
 
 	if (vsnprintf(text.data(), text.size(), format, ap) <= 0) {
@@ -378,11 +378,11 @@ void Logger::vlog(Level level, Facility facility, const char *format, va_list ap
 	dispatch(level, facility, text);
 }
 
-void Logger::vlog(Level level, const __FlashStringHelper *format, va_list ap) {
+void Logger::vlog(Level level, const __FlashStringHelper *format, va_list ap) const {
 	vlog(level, facility_, format, ap);
 }
 
-void Logger::vlog(Level level, Facility facility, const __FlashStringHelper *format, va_list ap) {
+void Logger::vlog(Level level, Facility facility, const __FlashStringHelper *format, va_list ap) const {
 	std::vector<char> text(MAX_LOG_LENGTH + 1);
 
 	if (vsnprintf_P(text.data(), text.size(), reinterpret_cast<PGM_P>(format), ap) <= 0) {
@@ -392,7 +392,7 @@ void Logger::vlog(Level level, Facility facility, const __FlashStringHelper *for
 	dispatch(level, facility, text);
 }
 
-void Logger::dispatch(Level level, Facility facility, std::vector<char> &text) {
+void Logger::dispatch(Level level, Facility facility, std::vector<char> &text) const {
 	std::shared_ptr<Message> message = std::make_shared<Message>(get_uptime_ms(), level, facility, name_, text.data());
 	text.resize(0);
 

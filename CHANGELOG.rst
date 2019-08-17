@@ -4,6 +4,11 @@ Change log
 Unreleased_
 -----------
 
+Changed
+~~~~~~~
+
+* Make all of the logging functions ``const``.
+
 2.0.1_ |--| 2019-08-16
 ----------------------
 
