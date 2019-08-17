@@ -7,5 +7,5 @@ build:
 	platformio run -d build/example-Serial
 
 native:
-	rm -rf natvie/.pio
+	rm -rf native/.pio
 	platformio test -d native
