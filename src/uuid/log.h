@@ -34,7 +34,7 @@
 namespace uuid {
 
 /**
- * Logging framework
+ * Logging framework.
  *
  * Provides a framework for handling log messages. This library is for
  * single threaded applications and cannot be used from an interrupt
@@ -98,8 +98,8 @@ enum Facility : uint8_t {
  *
  * Using the format "d+HH:mm:ss.SSS" with leading zeros for the days.
  *
- * @param[in] System uptime in milliseconds, see uuid::get_uptime_ms().
- * @param[in] Leading zeros for the days part of the output.
+ * @param[in] timestamp_ms System uptime in milliseconds, see uuid::get_uptime_ms().
+ * @param[in] days_width Leading zeros for the days part of the output.
  * @return String with the formatted system uptime.
  * @since 1.0.0
  */
@@ -111,7 +111,7 @@ std::string format_timestamp_ms(uint64_t timestamp_ms, unsigned int days_width =
  * Level::EMERG is represented as 'P' because it conflicts with
  * Level::ERR and it used to be the "panic" level.
  *
- * @param[in] Log level.
+ * @param[in] level Log level.
  * @return Single character uppercase representation of the log level.
  * @since 1.0.0
  */
@@ -120,7 +120,7 @@ char format_level_char(Level level);
 /**
  * Format a log level as an uppercase string.
  *
- * @param[in] Log level.
+ * @param[in] level Log level.
  * @return Uppercase name of the log level (flash string).
  * @since 1.0.0
  */
@@ -129,7 +129,7 @@ const __FlashStringHelper *format_level_uppercase(Level level);
 /**
  * Format a log level as a lowercase string.
  *
- * @param[in] Log level.
+ * @param[in] level Log level.
  * @return Lowercase name of the log level (flash string).
  * @since 1.0.0
  */
@@ -540,8 +540,8 @@ private:
 	 */
 	void dispatch(Level level, Facility facility, std::vector<char> &text) const;
 
-	static std::map<Handler*,Level> handlers_; /*<! Registered log handlers. @since 1.0.0 */
-	static Level level_; /*<! Minimum global log level across all handlers. @since 1.0.0 */
+	static std::map<Handler*,Level> handlers_; /*!< Registered log handlers. @since 1.0.0 */
+	static Level level_; /*!< Minimum global log level across all handlers. @since 1.0.0 */
 
 	const __FlashStringHelper *name_; /*!< Logger name (flash string). @since 1.0.0 */
 	const Facility facility_; /*!< Default logging facility for messages. @since 1.0.0 */
