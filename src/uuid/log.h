@@ -39,6 +39,9 @@ namespace uuid {
  * Provides a framework for handling log messages. This library is for
  * single threaded applications and cannot be used from an interrupt
  * context.
+ *
+ * - <a href="https://github.com/nomis/mcu-uuid-log/">Git Repository</a>
+ * - <a href="https://platformio.org/lib/show/6625/uuid-log">PlatformIO library</a>
  */
 namespace log {
 
