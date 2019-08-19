@@ -33,53 +33,64 @@
 
 namespace uuid {
 
+/**
+ * Logging framework
+ *
+ * Provides a framework for handling log messages. This library is for
+ * single threaded applications and cannot be used from an interrupt
+ * context.
+ */
 namespace log {
 
 /**
  * Severity level of log messages.
+ *
+ * @since 1.0.0
  */
 enum Level : int8_t {
-	OFF = -1, /*!< Meta level representing no log messages. */
-	EMERG = 0, /*!< System is unusable. */
-	ALERT, /*!< Action must be taken immediately. */
-	CRIT, /*!< Critical conditions. */
-	ERR, /*!< Error conditions. */
-	WARNING, /*!< Warning conditions. */
-	NOTICE, /*!< Normal but significant conditions. */
-	INFO, /*!< Informational messages. */
-	DEBUG, /*!< Debug-level messages. */
-	TRACE, /*!< Trace messages. */
-	ALL, /*!< Meta level representing all log messages. */
+	OFF = -1, /*!< Meta level representing no log messages. @since 1.0.0 */
+	EMERG = 0, /*!< System is unusable. @since 1.0.0 */
+	ALERT, /*!< Action must be taken immediately. @since 1.0.0 */
+	CRIT, /*!< Critical conditions. @since 1.0.0 */
+	ERR, /*!< Error conditions. @since 1.0.0 */
+	WARNING, /*!< Warning conditions. @since 1.0.0 */
+	NOTICE, /*!< Normal but significant conditions. @since 1.0.0 */
+	INFO, /*!< Informational messages. @since 1.0.0 */
+	DEBUG, /*!< Debug-level messages. @since 1.0.0 */
+	TRACE, /*!< Trace messages. @since 1.0.0 */
+	ALL, /*!< Meta level representing all log messages. @since 1.0.0 */
 };
 
 /**
  * Facility type of the process logging a message.
+ *
+ *  @since 1.0.0
  */
 enum Facility : uint8_t {
-	KERN = 0, /*!< Kernel messages. */
-	USER, /*!< User-level messages. */
-	MAIL, /*!< Mail system. */
-	DAEMON, /*!< System daemons. */
-	AUTH, /*!< Security/authentication messages. */
-	SYSLOG, /*!< Messages generated internally by logger. */
-	LPR, /*!< Line printer subsystem. */
-	NEWS, /*!< Network news subsystem. */
-	UUCP, /*!< UUCP subsystem. */
-	CRON, /*!< Clock daemon. */
-	AUTHPRIV, /*!< Security/authentication messages (private). */
-	FTP, /*!< FTP daemon. */
-	NTP, /*!< NTP subsystem. */
-	SECURITY, /*!< Log audit. */
-	CONSOLE, /*!< Log alert. */
-	CRON2, /*!< Scheduling daemon. */
-	LOCAL0, /*!< Locally used facility 0. */
-	LOCAL1, /*!< Locally used facility 1. */
-	LOCAL2, /*!< Locally used facility 2. */
-	LOCAL3, /*!< Locally used facility 3. */
-	LOCAL4, /*!< Locally used facility 4. */
-	LOCAL5, /*!< Locally used facility 5. */
-	LOCAL6, /*!< Locally used facility 6. */
-	LOCAL7, /*!< Locally used facility 7. */
+	KERN = 0, /*!< Kernel messages. @since 1.0.0 */
+	USER, /*!< User-level messages. @since 1.0.0 */
+	MAIL, /*!< Mail system. @since 1.0.0 */
+	DAEMON, /*!< System daemons. @since 1.0.0 */
+	AUTH, /*!< Security/authentication messages. @since 1.0.0 */
+	SYSLOG, /*!< Messages generated internally by logger. @since 1.0.0 */
+	LPR, /*!< Line printer subsystem. @since 1.0.0 */
+	NEWS, /*!< Network news subsystem. @since 1.0.0 */
+	UUCP, /*!< UUCP subsystem. @since 1.0.0 */
+	CRON, /*!< Clock daemon. @since 1.0.0 */
+	AUTHPRIV, /*!< Security/authentication messages (private). @since 1.0.0 */
+	FTP, /*!< FTP daemon. @since 1.0.0 */
+	NTP, /*!< NTP subsystem. @since 1.0.0 */
+	SECURITY, /*!< Log audit. @since 1.0.0 */
+	CONSOLE, /*!< Log alert. @since 1.0.0 */
+	CRON2, /*!< Scheduling daemon. @since 1.0.0 */
+	LOCAL0, /*!< Locally used facility 0. @since 1.0.0 */
+	LOCAL1, /*!< Locally used facility 1. @since 1.0.0 */
+	LOCAL2, /*!< Locally used facility 2. @since 1.0.0 */
+	LOCAL3, /*!< Locally used facility 3. @since 1.0.0 */
+	LOCAL4, /*!< Locally used facility 4. @since 1.0.0 */
+	LOCAL5, /*!< Locally used facility 5. @since 1.0.0 */
+	LOCAL6, /*!< Locally used facility 6. @since 1.0.0 */
+	LOCAL7, /*!< Locally used facility 7. @since 1.0.0 */
 };
 
 /**
@@ -90,6 +101,7 @@ enum Facility : uint8_t {
  * @param[in] System uptime in milliseconds, see uuid::get_uptime_ms().
  * @param[in] Leading zeros for the days part of the output.
  * @return String with the formatted system uptime.
+ * @since 1.0.0
  */
 std::string format_timestamp_ms(uint64_t timestamp_ms, unsigned int days_width = 1);
 
@@ -101,6 +113,7 @@ std::string format_timestamp_ms(uint64_t timestamp_ms, unsigned int days_width =
  *
  * @param[in] Log level.
  * @return Single character uppercase representation of the log level.
+ * @since 1.0.0
  */
 char format_level_char(Level level);
 
@@ -109,6 +122,7 @@ char format_level_char(Level level);
  *
  * @param[in] Log level.
  * @return Uppercase name of the log level (flash string).
+ * @since 1.0.0
  */
 const __FlashStringHelper *format_level_uppercase(Level level);
 
@@ -117,6 +131,7 @@ const __FlashStringHelper *format_level_uppercase(Level level);
  *
  * @param[in] Log level.
  * @return Lowercase name of the log level (flash string).
+ * @since 1.0.0
  */
 const __FlashStringHelper *format_level_lowercase(Level level);
 
@@ -125,6 +140,8 @@ const __FlashStringHelper *format_level_lowercase(Level level);
  *
  * These will be created when a message is logged and then passed to
  * all registered handlers.
+ *
+ * @since 1.0.0
  */
 struct Message {
 	/**
@@ -135,6 +152,7 @@ struct Message {
 	 * @param[in] facility Facility type of the process logging the message.
 	 * @param[in] name Logger name (flash string).
 	 * @param[in] text Log message text.
+	 * @since 1.0.0
 	 */
 	Message(uint64_t uptime_ms, Level level, Facility facility, const __FlashStringHelper *name, const std::string &&text);
 	~Message() = default;
@@ -143,21 +161,28 @@ struct Message {
 	 * System uptime at the time the message was logged.
 	 *
 	 * @see uuid::get_uptime_ms()
+	 * @since 1.0.0
 	 */
 	const uint64_t uptime_ms;
 
 	/**
 	 * Severity level of the message.
+	 *
+	 * @since 1.0.0
 	 */
 	const Level level;
 
 	/**
 	 * Facility type of the process that logged the message.
+	 *
+	 * @since 1.0.0
 	 */
 	const Facility facility;
 
 	/**
 	 * Name of the logger used (flash string).
+	 *
+	 * @since 1.0.0
 	 */
 	const __FlashStringHelper *name;
 
@@ -166,12 +191,16 @@ struct Message {
 	 *
 	 * Does not include any of the other message attributes, those must
 	 * be added by the handler when outputting messages.
+	 *
+	 * @since 1.0.0
 	 */
 	const std::string text;
 };
 
 /**
  * Logger handler used to process log messages.
+ *
+ * @since 1.0.0
  */
 class Handler {
 public:
@@ -188,6 +217,7 @@ public:
 	 * when full.
 	 *
 	 * @param[in] message New log message, shared by all handlers.
+	 * @since 1.0.0
 	 */
 	virtual void operator<<(std::shared_ptr<Message> message) = 0;
 
@@ -197,6 +227,8 @@ protected:
 
 /**
  * Logger instance used to make log messages.
+ *
+ * @since 1.0.0
  */
 class Logger {
 public:
@@ -205,6 +237,8 @@ public:
 	 *
 	 * Determines the size of the buffer used for format string
 	 * printing.
+	 *
+	 * @since 1.0.0
 	 */
 	static constexpr size_t MAX_LOG_LENGTH = 255;
 
@@ -213,6 +247,8 @@ public:
 	 *
 	 * @param[in] name Logger name (flash string).
 	 * @param[in] facility Default logging facility for messages.
+	 *
+	 * @since 1.0.0
 	 */
 	Logger(const __FlashStringHelper *name, Facility facility = Facility::LOCAL0);
 	~Logger() = default;
@@ -228,6 +264,7 @@ public:
 	 *                    messages.
 	 * @param[in] level Minimum log level that the handler is
 	 *                  interested in.
+	 * @since 1.0.0
 	 */
 	static void register_handler(Handler *handler, Level level);
 
@@ -240,6 +277,7 @@ public:
 	 *
 	 * @param[in] handler Handler object that will no longer handle
 	 *                    log messages.
+	 * @since 1.0.0
 	 */
 	static void unregister_handler(Handler *handler);
 
@@ -253,6 +291,7 @@ public:
 	 * @param[in] handler Handler object that may handle log
 	 *                    messages.
 	 * @return The current log level of the specified handler.
+	 * @since 1.0.0
 	 */
 	static Level get_log_level(const Handler *handler);
 
@@ -262,6 +301,7 @@ public:
 	 *
 	 * @return The current minimum global log level across all
 	 *         handlers.
+	 * @since 1.0.0
 	 */
 	static inline bool enabled(Level level) { return level <= level_; }
 
@@ -270,6 +310,7 @@ public:
 	 *
 	 * @param[in] format Format string.
 	 * @param[in] ... Format string arguments.
+	 * @since 1.0.0
 	 */
 	void emerg(const char *format, ...) const /* __attribute__((format (printf, 2, 3))) */;
 	/**
@@ -277,6 +318,7 @@ public:
 	 *
 	 * @param[in] format Format string (flash string).
 	 * @param[in] ... Format string arguments.
+	 * @since 1.0.0
 	 */
 	void emerg(const __FlashStringHelper *format, ...) const /* __attribute__((format (printf, 2, 3))) */;
 
@@ -285,6 +327,7 @@ public:
 	 *
 	 * @param[in] format Format string.
 	 * @param[in] ... Format string arguments.
+	 * @since 1.0.0
 	 */
 	void alert(const char *format, ...) const /* __attribute__((format (printf, 2, 3))) */;
 	/**
@@ -292,6 +335,7 @@ public:
 	 *
 	 * @param[in] format Format string (flash string).
 	 * @param[in] ... Format string arguments.
+	 * @since 1.0.0
 	 */
 	void alert(const __FlashStringHelper *format, ...) const /* __attribute__((format (printf, 2, 3))) */;
 
@@ -300,6 +344,7 @@ public:
 	 *
 	 * @param[in] format Format string.
 	 * @param[in] ... Format string arguments.
+	 * @since 1.0.0
 	 */
 	void crit(const char *format, ...) const /* __attribute__((format (printf, 2, 3))) */;
 	/**
@@ -307,6 +352,7 @@ public:
 	 *
 	 * @param[in] format Format string (flash string).
 	 * @param[in] ... Format string arguments.
+	 * @since 1.0.0
 	 */
 	void crit(const __FlashStringHelper *format, ...) const /* __attribute__((format (printf, 2, 3))) */;
 
@@ -315,6 +361,7 @@ public:
 	 *
 	 * @param[in] format Format string.
 	 * @param[in] ... Format string arguments.
+	 * @since 1.0.0
 	 */
 	void err(const char *format, ...) const /* __attribute__((format (printf, 2, 3))) */;
 	/**
@@ -322,6 +369,7 @@ public:
 	 *
 	 * @param[in] format Format string (flash string).
 	 * @param[in] ... Format string arguments.
+	 * @since 1.0.0
 	 */
 	void err(const __FlashStringHelper *format, ...) const /* __attribute__((format (printf, 2, 3))) */;
 
@@ -330,6 +378,7 @@ public:
 	 *
 	 * @param[in] format Format string.
 	 * @param[in] ... Format string arguments.
+	 * @since 1.0.0
 	 */
 	void warning(const char *format, ...) const /* __attribute__((format (printf, 2, 3))) */;
 	/**
@@ -337,6 +386,7 @@ public:
 	 *
 	 * @param[in] format Format string (flash string).
 	 * @param[in] ... Format string arguments.
+	 * @since 1.0.0
 	 */
 	void warning(const __FlashStringHelper *format, ...) const /* __attribute__((format (printf, 2, 3))) */;
 
@@ -345,6 +395,7 @@ public:
 	 *
 	 * @param[in] format Format string.
 	 * @param[in] ... Format string arguments.
+	 * @since 1.0.0
 	 */
 	void notice(const char *format, ...) const /* __attribute__((format (printf, 2, 3))) */;
 	/**
@@ -352,6 +403,7 @@ public:
 	 *
 	 * @param[in] format Format string (flash string).
 	 * @param[in] ... Format string arguments.
+	 * @since 1.0.0
 	 */
 	void notice(const __FlashStringHelper *format, ...) const /* __attribute__((format (printf, 2, 3))) */;
 
@@ -360,6 +412,7 @@ public:
 	 *
 	 * @param[in] format Format string.
 	 * @param[in] ... Format string arguments.
+	 * @since 1.0.0
 	 */
 	void info(const char *format, ...) const /* __attribute__((format (printf, 2, 3))) */;
 	/**
@@ -375,6 +428,7 @@ public:
 	 *
 	 * @param[in] format Format string.
 	 * @param[in] ... Format string arguments.
+	 * @since 1.0.0
 	 */
 	void debug(const char *format, ...) const /* __attribute__((format (printf, 2, 3))) */;
 	/**
@@ -382,6 +436,7 @@ public:
 	 *
 	 * @param[in] format Format string (flash string).
 	 * @param[in] ... Format string arguments.
+	 * @since 1.0.0
 	 */
 	void debug(const __FlashStringHelper *format, ...) const /* __attribute__((format (printf, 2, 3))) */;
 
@@ -390,6 +445,7 @@ public:
 	 *
 	 * @param[in] format Format string.
 	 * @param[in] ... Format string arguments.
+	 * @since 1.0.0
 	 */
 	void trace(const char *format, ...) const /* __attribute__((format (printf, 2, 3))) */;
 	/**
@@ -397,6 +453,7 @@ public:
 	 *
 	 * @param[in] format Format string (flash string).
 	 * @param[in] ... Format string arguments.
+	 * @since 1.0.0
 	 */
 	void trace(const __FlashStringHelper *format, ...) const /* __attribute__((format (printf, 2, 3))) */;
 
@@ -407,6 +464,7 @@ public:
 	 * @param[in] facility Facility type of the process logging the message.
 	 * @param[in] format Format string.
 	 * @param[in] ... Format string arguments.
+	 * @since 1.0.0
 	 */
 	void log(Level level, Facility facility, const char *format, ...) const /* __attribute__((format (printf, 3, 4))) */;
 	/**
@@ -416,12 +474,15 @@ public:
 	 * @param[in] facility Facility type of the process logging the message.
 	 * @param[in] format Format string (flash string).
 	 * @param[in] ... Format string arguments.
+	 * @since 1.0.0
 	 */
 	void log(Level level, Facility facility, const __FlashStringHelper *format, ...) const /* __attribute__((format (printf, 4, 5))) */;
 
 private:
 	/**
 	 * Refresh the minimum global log level across all handlers.
+	 *
+	 * @since 1.0.0
 	 */
 	static void refresh_log_level();
 
@@ -431,6 +492,7 @@ private:
 	 * @param[in] level Severity level of the message.
 	 * @param[in] format Format string.
 	 * @param[in] ap Variable arguments pointer for format string.
+	 * @since 1.0.0
 	 */
 	void vlog(Level level, const char *format, va_list ap) const;
 	/**
@@ -439,6 +501,7 @@ private:
 	 * @param[in] level Severity level of the message.
 	 * @param[in] format Format string (flash string).
 	 * @param[in] ap Variable arguments pointer for format string.
+	 * @since 1.0.0
 	 */
 	void vlog(Level level, const __FlashStringHelper *format, va_list ap) const;
 
@@ -449,6 +512,7 @@ private:
 	 * @param[in] facility Facility type of the process logging the message.
 	 * @param[in] format Format string.
 	 * @param[in] ap Variable arguments pointer for format string.
+	 * @since 1.0.0
 	 */
 	void vlog(Level level, Facility facility, const char *format, va_list ap) const;
 	/**
@@ -458,6 +522,7 @@ private:
 	 * @param[in] facility Facility type of the process logging the message.
 	 * @param[in] format Format string (flash string).
 	 * @param[in] ap Variable arguments pointer for format string.
+	 * @since 1.0.0
 	 */
 	void vlog(Level level, Facility facility, const __FlashStringHelper *format, va_list ap) const;
 
@@ -471,14 +536,15 @@ private:
 	 * @param[in] level Severity level of the message.
 	 * @param[in] facility Facility type of the process logging the message.
 	 * @param[in] text Log message text.
+	 * @since 1.0.0
 	 */
 	void dispatch(Level level, Facility facility, std::vector<char> &text) const;
 
-	static std::map<Handler*,Level> handlers_; /*<! Registered log handlers. */
-	static Level level_; /*<! Minimum global log level across all handlers. */
+	static std::map<Handler*,Level> handlers_; /*<! Registered log handlers. @since 1.0.0 */
+	static Level level_; /*<! Minimum global log level across all handlers. @since 1.0.0 */
 
-	const __FlashStringHelper *name_; /*!< Logger name (flash string). */
-	const Facility facility_; /*!< Default logging facility for messages. */
+	const __FlashStringHelper *name_; /*!< Logger name (flash string). @since 1.0.0 */
+	const Facility facility_; /*!< Default logging facility for messages. @since 1.0.0 */
 };
 
 } // namespace log
