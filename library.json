@@ -2,12 +2,19 @@
 	"name": "uuid-log",
 	"description": "Logging framework",
 	"keywords": "logging",
+	"authors": [
+		{
+			"name": "Simon Arlott",
+			"maintainer": true
+		}
+	],
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/nomis/mcu-uuid-log.git"
 	},
 	"version": "2.0.3",
 	"license": "GPL-3.0-or-later",
+	"homepage": "https://mcu-uuid-log.readthedocs.io/",
 	"export": {
 		"exclude": [
 			".travis.yml",
