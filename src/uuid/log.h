@@ -40,13 +40,8 @@ namespace uuid {
  * single threaded applications and cannot be used from an interrupt
  * context.
  *
- * Usage:
- * - Create a uuid::log::Logger and call its functions for logging messages.
- * - Create a class that implements uuid::log::Handler and registers to handle log messages. Output those messages by whatever means is appropriate for your application (e.g. serial console, over the WiFi network, by email).
- *
- * Links:
  * - <a href="https://github.com/nomis/mcu-uuid-log/">Git Repository</a>
- * - <a href="https://platformio.org/lib/show/6625/uuid-log">PlatformIO library</a>
+ * - <a href="https://mcu-uuid-log.readthedocs.io/">Documentation</a>
  */
 namespace log {
 

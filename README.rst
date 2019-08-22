@@ -1,31 +1,25 @@
-Logging framework |Build Status|
-================================
+mcu-uuid-log |Build Status|
+===========================
+
+Description
+-----------
+
+Microcontroller logging framework
+
+Purpose
+-------
 
 Provides a framework for handling log messages. This library is for
 single threaded applications and cannot be used from an interrupt
 context.
 
-There is no option to exclude compilation of debug-level messages, the
-expectation is that these will be disabled at runtime. If your program
-cannot fit in flash with the debug messages enabled or run with
-sufficient performance then there's no benefit in having them.
+Documentation
+-------------
 
-The performance impact of disabled debug logging can be limited by using
-the ``Logger::enabled(level)`` function (but messages will not be
-formatted if the level isn't enabled).
+`Read the documentation <https://mcu-uuid-log.readthedocs.io/>`_ generated
+from the docs_ directory.
 
-* `Change log <CHANGELOG.rst>`_
-
-Usage
------
-
-Create a ``uuid::log::Logger`` and call its functions for logging
-messages.
-
-Create a class that implements ``uuid::log::Handler`` and registers
-to handle log messages. Output those messages by whatever means is
-appropriate for your application (e.g. serial console, over the WiFi
-network, by email).
+.. _docs: docs/
 
 .. |Build Status| image:: https://travis-ci.org/nomis/mcu-uuid-log.svg?branch=master
    :target: https://travis-ci.org/nomis/mcu-uuid-log
