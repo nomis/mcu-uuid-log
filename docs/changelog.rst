@@ -4,6 +4,11 @@ Change log
 Unreleased_
 -----------
 
+Changed
+~~~~~~~
+
+* Put formatting functions in a separate file to improve linker behaviour.
+
 2.0.3_ |--| 2019-08-17
 ----------------------
 
