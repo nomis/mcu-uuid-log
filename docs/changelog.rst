@@ -7,7 +7,14 @@ Unreleased_
 Changed
 ~~~~~~~
 
-* Put formatting functions in a separate file to improve linker behaviour.
+* Put formatting functions in a separate file to improve linker
+  behaviour.
+
+Fixed
+~~~~~
+
+* Uptime format string should use the unsigned conversion specifier for
+  all values.
 
 2.0.3_ |--| 2019-08-17
 ----------------------

@@ -47,7 +47,7 @@ std::string format_timestamp_ms(uint64_t timestamp_ms, unsigned int days_width) 
 
 	std::vector<char> text(10 + 1 /* days */ + 2 + 1 /* hours */ + 2 + 1 /* minutes */ + 2 + 1 /* seconds */ + 3 /* milliseconds */ + 1);
 
-	snprintf(text.data(), text.size(), "%0*ld+%02d:%02d:%02d.%03d", std::min(days_width, 10U), days, hours, minutes, seconds, milliseconds);
+	snprintf(text.data(), text.size(), "%0*lu+%02u:%02u:%02u.%03u", std::min(days_width, 10U), days, hours, minutes, seconds, milliseconds);
 
 	return text.data();
 }
