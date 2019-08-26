@@ -4,6 +4,11 @@ Change log
 Unreleased_
 -----------
 
+2.0.4_ |--| 2019-08-26
+----------------------
+
+Fix uptime format string.
+
 Changed
 ~~~~~~~
 
@@ -93,7 +98,8 @@ Added
 
 .. |--| unicode:: U+2013 .. EN DASH
 
-.. _Unreleased: https://github.com/nomis/mcu-uuid-log/compare/2.0.3...HEAD
+.. _Unreleased: https://github.com/nomis/mcu-uuid-log/compare/2.0.4...HEAD
+.. _2.0.4: https://github.com/nomis/mcu-uuid-log/compare/2.0.3...2.0.4
 .. _2.0.3: https://github.com/nomis/mcu-uuid-log/compare/2.0.2...2.0.3
 .. _2.0.2: https://github.com/nomis/mcu-uuid-log/compare/2.0.1...2.0.2
 .. _2.0.1: https://github.com/nomis/mcu-uuid-log/compare/2.0.0...2.0.1
