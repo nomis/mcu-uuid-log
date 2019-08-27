@@ -27,6 +27,12 @@ Example
 
 .. literalinclude:: ../examples/Serial.cpp
 
+Output
+~~~~~~
+
+.. literalinclude:: ../examples/Serial.txt
+   :language: none
+
 .. |uuid::log::Logger| replace:: ``uuid::log:Logger``
 .. _uuid::log::Logger: https://mcu-doxygen.uuid.uk/classuuid_1_1log_1_1Logger.html
 
