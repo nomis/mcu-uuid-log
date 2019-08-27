@@ -8,6 +8,7 @@ build:
 	# Workaround for https://github.com/platformio/platformio-core/issues/2573
 	cd build/example-Serial && pio lib install uuid-common
 	platformio run -d build/example-Serial
+	build/example-Serial/.pio/build/native/program >../examples/Serial.txt
 
 native:
 	rm -rf native/.pio
