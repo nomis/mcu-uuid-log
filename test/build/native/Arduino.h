@@ -1,5 +1,5 @@
 /*
- * uuid-common - Microcontroller common utilities
+ * uuid-log - Microcontroller logging framework
  * Copyright 2019  Simon Arlott
  *
  * This program is free software: you can redistribute it and/or modify
