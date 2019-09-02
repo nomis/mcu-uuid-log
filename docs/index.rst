@@ -13,6 +13,14 @@ Provides a framework for handling log messages. This library is for
 single threaded applications and cannot be used from an interrupt
 context.
 
+Dependencies
+------------
+
+* `mcu-uuid-common <https://mcu-uuid-common.readthedocs.io/>`_
+
+Refer to the :download:`library.json <../library.json>` file for more
+details.
+
 Contents
 --------
 
