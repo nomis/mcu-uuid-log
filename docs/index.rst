@@ -29,6 +29,7 @@ Contents
    :maxdepth: 1
 
    usage
+   related
 
 Resources
 ---------
