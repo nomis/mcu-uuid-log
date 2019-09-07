@@ -4,6 +4,12 @@ Change log
 Unreleased_
 -----------
 
+Added
+~~~~~
+
+* Functions to get a list of all levels, format them as uppercase or
+  lowercase strings and then parse them back again.
+
 2.0.4_ |--| 2019-08-26
 ----------------------
 

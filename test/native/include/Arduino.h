@@ -1,3 +1,4 @@
+
 /*
  * uuid-log - Microcontroller logging framework
  * Copyright 2019  Simon Arlott
@@ -19,6 +20,8 @@
 #ifndef ARDUINO_H_
 #define ARDUINO_H_
 
+#include <string.h>
+
 #define PROGMEM
 #define PGM_P const char *
 #define PSTR(s) (__extension__({static const char __c[] = (s); &__c[0];}))
@@ -27,6 +30,7 @@ class __FlashStringHelper;
 #define FPSTR(string_literal) (reinterpret_cast<const __FlashStringHelper *>(string_literal))
 #define F(string_literal) (FPSTR(PSTR(string_literal)))
 
+#define strcmp_P strcmp
 #define vsnprintf_P vsnprintf
 
 #endif

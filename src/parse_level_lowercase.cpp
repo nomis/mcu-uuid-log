@@ -16,8 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef MOCK_UUID_COMMON_H_
-#define MOCK_UUID_COMMON_H_
+#include <uuid/log.h>
 
 #include <Arduino.h>
 
@@ -25,12 +24,18 @@
 
 namespace uuid {
 
-static __attribute__((unused)) std::string read_flash_string(const __FlashStringHelper *flash_str) {
-	return reinterpret_cast<const char *>(flash_str);
+namespace log {
+
+bool parse_level_lowercase(const std::string &name, Level &level) {
+	for (auto value : levels()) {
+		if (!strcmp_P(name.c_str(), reinterpret_cast<PGM_P>(format_level_lowercase(value)))) {
+			level = value;
+			return true;
+		}
+	}
+	return false;
 }
 
-uint64_t get_uptime_ms();
+} // namespace log
 
 } // namespace uuid
-
-#endif

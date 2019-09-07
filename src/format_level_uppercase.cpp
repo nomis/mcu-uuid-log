@@ -26,32 +26,33 @@ namespace uuid {
 
 namespace log {
 
-static const char *pstr_level_uppercase_off __attribute__((__aligned__(sizeof(int)))) PROGMEM = "OFF";
-static const char *pstr_level_uppercase_emerg __attribute__((__aligned__(sizeof(int)))) PROGMEM = "EMERG";
-static const char *pstr_level_uppercase_crit __attribute__((__aligned__(sizeof(int)))) PROGMEM = "CRIT";
-static const char *pstr_level_uppercase_alert __attribute__((__aligned__(sizeof(int)))) PROGMEM = "ALERT";
-static const char *pstr_level_uppercase_err __attribute__((__aligned__(sizeof(int)))) PROGMEM = "ERR";
-static const char *pstr_level_uppercase_warning __attribute__((__aligned__(sizeof(int)))) PROGMEM = "WARNING";
-static const char *pstr_level_uppercase_notice __attribute__((__aligned__(sizeof(int)))) PROGMEM = "NOTICE";
-static const char *pstr_level_uppercase_info __attribute__((__aligned__(sizeof(int)))) PROGMEM = "INFO";
-static const char *pstr_level_uppercase_debug __attribute__((__aligned__(sizeof(int)))) PROGMEM = "DEBUG";
-static const char *pstr_level_uppercase_trace __attribute__((__aligned__(sizeof(int)))) PROGMEM = "TRACE";
-static const char *pstr_level_uppercase_all __attribute__((__aligned__(sizeof(int)))) PROGMEM = "ALL";
+static constexpr const char *pstr_level_uppercase_off __attribute__((__aligned__(sizeof(int)))) PROGMEM = "OFF";
+static constexpr const char *pstr_level_uppercase_emerg __attribute__((__aligned__(sizeof(int)))) PROGMEM = "EMERG";
+static constexpr const char *pstr_level_uppercase_crit __attribute__((__aligned__(sizeof(int)))) PROGMEM = "CRIT";
+static constexpr const char *pstr_level_uppercase_alert __attribute__((__aligned__(sizeof(int)))) PROGMEM = "ALERT";
+static constexpr const char *pstr_level_uppercase_err __attribute__((__aligned__(sizeof(int)))) PROGMEM = "ERR";
+static constexpr const char *pstr_level_uppercase_warning __attribute__((__aligned__(sizeof(int)))) PROGMEM = "WARNING";
+static constexpr const char *pstr_level_uppercase_notice __attribute__((__aligned__(sizeof(int)))) PROGMEM = "NOTICE";
+static constexpr const char *pstr_level_uppercase_info __attribute__((__aligned__(sizeof(int)))) PROGMEM = "INFO";
+static constexpr const char *pstr_level_uppercase_debug __attribute__((__aligned__(sizeof(int)))) PROGMEM = "DEBUG";
+static constexpr const char *pstr_level_uppercase_trace __attribute__((__aligned__(sizeof(int)))) PROGMEM = "TRACE";
+static constexpr const char *pstr_level_uppercase_all __attribute__((__aligned__(sizeof(int)))) PROGMEM = "ALL";
+
+static constexpr const __FlashStringHelper *log_level_uppercase[(int)Level::ALL - (int)Level::OFF + 1] __attribute__((__aligned__(sizeof(int)))) PROGMEM = {
+	reinterpret_cast<const __FlashStringHelper *>(pstr_level_uppercase_off),
+	reinterpret_cast<const __FlashStringHelper *>(pstr_level_uppercase_emerg),
+	reinterpret_cast<const __FlashStringHelper *>(pstr_level_uppercase_crit),
+	reinterpret_cast<const __FlashStringHelper *>(pstr_level_uppercase_alert),
+	reinterpret_cast<const __FlashStringHelper *>(pstr_level_uppercase_err),
+	reinterpret_cast<const __FlashStringHelper *>(pstr_level_uppercase_warning),
+	reinterpret_cast<const __FlashStringHelper *>(pstr_level_uppercase_notice),
+	reinterpret_cast<const __FlashStringHelper *>(pstr_level_uppercase_info),
+	reinterpret_cast<const __FlashStringHelper *>(pstr_level_uppercase_debug),
+	reinterpret_cast<const __FlashStringHelper *>(pstr_level_uppercase_trace),
+	reinterpret_cast<const __FlashStringHelper *>(pstr_level_uppercase_all)
+};
 
 const __FlashStringHelper *format_level_uppercase(Level level) {
-	const __FlashStringHelper *log_level_uppercase[(int)Level::ALL - (int)Level::OFF + 1] = {
-			reinterpret_cast<const __FlashStringHelper *>(pstr_level_uppercase_off),
-			reinterpret_cast<const __FlashStringHelper *>(pstr_level_uppercase_emerg),
-			reinterpret_cast<const __FlashStringHelper *>(pstr_level_uppercase_crit),
-			reinterpret_cast<const __FlashStringHelper *>(pstr_level_uppercase_alert),
-			reinterpret_cast<const __FlashStringHelper *>(pstr_level_uppercase_err),
-			reinterpret_cast<const __FlashStringHelper *>(pstr_level_uppercase_warning),
-			reinterpret_cast<const __FlashStringHelper *>(pstr_level_uppercase_notice),
-			reinterpret_cast<const __FlashStringHelper *>(pstr_level_uppercase_info),
-			reinterpret_cast<const __FlashStringHelper *>(pstr_level_uppercase_debug),
-			reinterpret_cast<const __FlashStringHelper *>(pstr_level_uppercase_trace),
-			reinterpret_cast<const __FlashStringHelper *>(pstr_level_uppercase_all)
-	};
 	return log_level_uppercase[(int)level + 1];
 }
 

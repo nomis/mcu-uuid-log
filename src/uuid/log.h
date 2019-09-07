@@ -109,6 +109,15 @@ enum Facility : uint8_t {
 std::string format_timestamp_ms(uint64_t timestamp_ms, unsigned int days_width = 1);
 
 /**
+ * Get all log levels.
+ *
+ * @return A list of all log levels in priority order from
+ *         uuid::log::Level::OFF to uuid::log::Level::ALL.
+ * @since 2.1.0
+ */
+std::vector<Level> levels();
+
+/**
  * Format a log level as a single character.
  *
  * Level::EMERG is represented as 'P' because it conflicts with
@@ -130,6 +139,26 @@ char format_level_char(Level level);
 const __FlashStringHelper *format_level_uppercase(Level level);
 
 /**
+ * Get all log levels as uppercase strings.
+ *
+ * @return A list of all log levels in priority order from
+ *         uuid::log::Level::OFF to uuid::log::Level::ALL
+ *         as uppercase strings.
+ * @since 2.1.0
+ */
+std::vector<std::string> levels_uppercase();
+
+/**
+ * Parse an uppercase string to a log level.
+ *
+ * @param[in] name Uppercase name of the log level.
+ * @param[out] level Log level.
+ * @return True if the named level is valid, otherwise false.
+ * @since 2.1.0
+ */
+bool parse_level_uppercase(const std::string &name, Level &level);
+
+/**
  * Format a log level as a lowercase string.
  *
  * @param[in] level Log level.
@@ -137,6 +166,26 @@ const __FlashStringHelper *format_level_uppercase(Level level);
  * @since 1.0.0
  */
 const __FlashStringHelper *format_level_lowercase(Level level);
+
+/**
+ * Get all log levels as lowercase strings.
+ *
+ * @return A list of all log levels in priority order from
+ *         uuid::log::Level::OFF to uuid::log::Level::ALL
+ *         as lowercase strings.
+ * @since 2.1.0
+ */
+std::vector<std::string> levels_lowercase();
+
+/**
+ * Parse a lowercase string to a log level.
+ *
+ * @param[in] name Lowercase name of the log level.
+ * @param[out] level Log level.
+ * @return True if the named level is valid, otherwise false.
+ * @since 2.1.0
+ */
+bool parse_level_lowercase(const std::string &name, Level &level);
 
 /**
  * Log message text with timestamp and logger attributes.

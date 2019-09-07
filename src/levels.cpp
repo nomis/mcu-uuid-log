@@ -16,21 +16,30 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef MOCK_UUID_COMMON_H_
-#define MOCK_UUID_COMMON_H_
+#include <uuid/log.h>
 
-#include <Arduino.h>
-
-#include <string>
+#include <vector>
 
 namespace uuid {
 
-static __attribute__((unused)) std::string read_flash_string(const __FlashStringHelper *flash_str) {
-	return reinterpret_cast<const char *>(flash_str);
+namespace log {
+
+std::vector<Level> levels() {
+	return {
+		Level::OFF,
+		Level::EMERG,
+		Level::ALERT,
+		Level::CRIT,
+		Level::ERR,
+		Level::WARNING,
+		Level::NOTICE,
+		Level::INFO,
+		Level::DEBUG,
+		Level::TRACE,
+		Level::ALL
+	};
 }
 
-uint64_t get_uptime_ms();
+} // namespace log
 
 } // namespace uuid
-
-#endif
