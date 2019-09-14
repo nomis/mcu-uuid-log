@@ -4,6 +4,11 @@ Change log
 Unreleased_
 -----------
 
+Fixed
+~~~~~
+
+* Use a flash string for the format string in ``format_timestamp_ms()``.
+
 2.1.0_ |--| 2019-09-07
 ----------------------
 

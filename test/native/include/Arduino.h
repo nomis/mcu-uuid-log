@@ -1,4 +1,3 @@
-
 /*
  * uuid-log - Microcontroller logging framework
  * Copyright 2019  Simon Arlott
@@ -31,6 +30,7 @@ class __FlashStringHelper;
 #define F(string_literal) (FPSTR(PSTR(string_literal)))
 
 #define strcmp_P strcmp
+#define snprintf_P snprintf
 #define vsnprintf_P vsnprintf
 
 #endif
