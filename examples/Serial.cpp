@@ -6,10 +6,6 @@ class SerialLogHandler: public uuid::log::Handler {
 public:
 	SerialLogHandler() = default;
 
-	~SerialLogHandler() {
-		uuid::log::Logger::unregister_handler(this);
-	};
-
 	void start() {
 		uuid::log::Logger::register_handler(this, uuid::log::Level::ALL);
 	}
