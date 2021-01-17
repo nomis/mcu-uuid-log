@@ -4,6 +4,11 @@ Change log
 Unreleased_
 -----------
 
+2.1.2_ |--| 2020-01-17
+----------------------
+
+Fixes for uncontrolled ordering of static object lifetimes.
+
 Changed
 ~~~~~~~
 
@@ -130,7 +135,8 @@ Added
 
 .. |--| unicode:: U+2013 .. EN DASH
 
-.. _Unreleased: https://github.com/nomis/mcu-uuid-log/compare/2.1.1...HEAD
+.. _Unreleased: https://github.com/nomis/mcu-uuid-log/compare/2.1.2...HEAD
+.. _2.1.2: https://github.com/nomis/mcu-uuid-log/compare/2.1.1...2.1.2
 .. _2.1.1: https://github.com/nomis/mcu-uuid-log/compare/2.1.0...2.1.1
 .. _2.1.0: https://github.com/nomis/mcu-uuid-log/compare/2.0.4...2.1.0
 .. _2.0.4: https://github.com/nomis/mcu-uuid-log/compare/2.0.3...2.0.4
