@@ -4,6 +4,11 @@ Change log
 Unreleased_
 -----------
 
+Changed
+~~~~~~~
+
+* Automatically unregister handlers when they are destroyed.
+
 2.1.1_ |--| 2019-09-15
 ----------------------
 

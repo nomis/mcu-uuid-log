@@ -1,6 +1,6 @@
 /*
  * uuid-log - Microcontroller logging framework
- * Copyright 2019  Simon Arlott
+ * Copyright 2019,2021  Simon Arlott
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -256,7 +256,7 @@ struct Message {
  */
 class Handler {
 public:
-	virtual ~Handler() = default;
+	virtual ~Handler();
 
 	/**
 	 * Add a new log message.
