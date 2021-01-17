@@ -1,6 +1,6 @@
 /*
  * uuid-log - Microcontroller logging framework
- * Copyright 2019  Simon Arlott
+ * Copyright 2019,2021  Simon Arlott
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -33,7 +33,6 @@ namespace uuid {
 
 namespace log {
 
-std::map<Handler*,Level> Logger::handlers_;
 Level Logger::level_ = Level::OFF;
 
 Message::Message(uint64_t uptime_ms, Level level, Facility facility, const __FlashStringHelper *name, const std::string &&text)
@@ -45,20 +44,36 @@ Logger::Logger(const __FlashStringHelper *name, Facility facility)
 
 };
 
+std::shared_ptr<std::map<Handler*,Level>>& Logger::registered_handlers() {
+	static std::shared_ptr<std::map<Handler*,Level>> handlers = std::make_shared<std::map<Handler*,Level>>();
+
+	return handlers;
+}
+
 void Logger::register_handler(Handler *handler, Level level) {
-	handlers_[handler] = level;
+	auto& handlers = registered_handlers();
+
+	handler->handlers_ = handlers;
+	(*handlers)[handler] = level;
 	refresh_log_level();
 };
 
 void Logger::unregister_handler(Handler *handler) {
-	handlers_.erase(handler);
-	refresh_log_level();
+	auto handlers = handler->handlers_.lock();
+
+	if (handlers) {
+		if (handlers->erase(handler)) {
+			refresh_log_level();
+		}
+	}
 };
 
 Level Logger::get_log_level(const Handler *handler) {
-	const auto level = handlers_.find(const_cast<Handler*>(handler));
+	auto& handlers = registered_handlers();
 
-	if (level != handlers_.end()) {
+	const auto level = handlers->find(const_cast<Handler*>(handler));
+
+	if (level != handlers->end()) {
 		return level->second;
 	}
 
@@ -308,7 +323,7 @@ void Logger::dispatch(Level level, Facility facility, std::vector<char> &text) c
 	std::shared_ptr<Message> message = std::make_shared<Message>(get_uptime_ms(), level, facility, name_, text.data());
 	text.resize(0);
 
-	for (auto &handler : handlers_) {
+	for (auto &handler : *registered_handlers()) {
 		if (level <= handler.second) {
 			*handler.first << message;
 		}
@@ -318,7 +333,7 @@ void Logger::dispatch(Level level, Facility facility, std::vector<char> &text) c
 void Logger::refresh_log_level() {
 	level_ = Level::OFF;
 
-	for (auto &handler : handlers_) {
+	for (auto &handler : *registered_handlers()) {
 		if (level_ < handler.second) {
 			level_ = handler.second;
 		}

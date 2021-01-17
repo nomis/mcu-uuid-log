@@ -9,6 +9,12 @@ Changed
 
 * Automatically unregister handlers when they are destroyed.
 
+Fixed
+~~~~~
+
+* Make registration of log handlers safe during static initialization
+  and unregistration safe during static deinitialization.
+
 2.1.1_ |--| 2019-09-15
 ----------------------
 

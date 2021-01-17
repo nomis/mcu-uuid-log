@@ -249,12 +249,21 @@ struct Message {
 	const std::string text;
 };
 
+class Logger;
+
 /**
  * Logger handler used to process log messages.
  *
  * @since 1.0.0
  */
 class Handler {
+	/**
+	 * Logger needs to be able to access the private reference to
+	 * the registered log handlers.
+	 *
+	 * @since 2.1.2
+	 */
+	friend Logger;
 public:
 	virtual ~Handler();
 
@@ -275,6 +284,17 @@ public:
 
 protected:
 	Handler() = default;
+
+private:
+	/**
+	 * Reference to registered log handlers.
+	 *
+	 * Used in the destructor to safely unregister the handler even if
+	 * the underlying map has already been destroyed.
+	 *
+	 * @since 2.1.2
+	 */
+	std::weak_ptr<std::map<Handler*,Level>> handlers_;
 };
 
 /**
@@ -310,8 +330,6 @@ public:
 	 *
 	 * Call again to change the log level.
 	 *
-	 * Do not call this function from a static initializer.
-	 *
 	 * @param[in] handler Handler object that will handle log
 	 *                    messages.
 	 * @param[in] level Minimum log level that the handler is
@@ -325,8 +343,6 @@ public:
 	 *
 	 * It is safe to call this with a handler that is not registered.
 	 *
-	 * Do not call this function from a static initializer.
-	 *
 	 * @param[in] handler Handler object that will no longer handle
 	 *                    log messages.
 	 * @since 1.0.0
@@ -337,8 +353,6 @@ public:
 	 * Get the current log level of a handler.
 	 *
 	 * It is safe to call this with a handler that is not registered.
-	 *
-	 * Do not call this function from a static initializer.
 	 *
 	 * @param[in] handler Handler object that may handle log
 	 *                    messages.
@@ -537,6 +551,13 @@ private:
 	 * @since 1.0.0
 	 */
 	static void refresh_log_level();
+	/**
+	 * Get registered log handlers.
+	 *
+	 * @return The registered log handlers.
+	 * @since 2.1.2
+	 */
+	static std::shared_ptr<std::map<Handler*,Level>>& registered_handlers();
 
 	/**
 	 * Log a message at the specified level.
@@ -592,7 +613,6 @@ private:
 	 */
 	void dispatch(Level level, Facility facility, std::vector<char> &text) const;
 
-	static std::map<Handler*,Level> handlers_; /*!< Registered log handlers. @since 1.0.0 */
 	static Level level_; /*!< Minimum global log level across all handlers. @since 1.0.0 */
 
 	const __FlashStringHelper *name_; /*!< Logger name (flash string). @since 1.0.0 */
