@@ -4,11 +4,15 @@ Change log
 Unreleased_
 -----------
 
+2.1.3_ |--| 2021-04-18
+----------------------
+
+Upgrade to PlatformIO 5.
+
 Changed
 ~~~~~~~
 
-* Upgrade to PlatformIO 5.
-
+* Use PlatformIO 5 dependency specification.
 
 2.1.2_ |--| 2020-01-17
 ----------------------
@@ -141,7 +145,8 @@ Added
 
 .. |--| unicode:: U+2013 .. EN DASH
 
-.. _Unreleased: https://github.com/nomis/mcu-uuid-log/compare/2.1.2...HEAD
+.. _Unreleased: https://github.com/nomis/mcu-uuid-log/compare/2.1.3...HEAD
+.. _2.1.3: https://github.com/nomis/mcu-uuid-log/compare/2.1.2...2.1.3
 .. _2.1.2: https://github.com/nomis/mcu-uuid-log/compare/2.1.1...2.1.2
 .. _2.1.1: https://github.com/nomis/mcu-uuid-log/compare/2.1.0...2.1.1
 .. _2.1.0: https://github.com/nomis/mcu-uuid-log/compare/2.0.4...2.1.0
