@@ -4,6 +4,12 @@ Change log
 Unreleased_
 -----------
 
+Changed
+~~~~~~~
+
+* Upgrade to PlatformIO 5.
+
+
 2.1.2_ |--| 2020-01-17
 ----------------------
 

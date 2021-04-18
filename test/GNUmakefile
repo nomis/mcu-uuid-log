@@ -6,9 +6,7 @@ all: build native doxygen
 build:
 	rm -rf build/*/.pio
 	# Workaround for https://github.com/platformio/platformio-core/issues/2573
-	cd build/example-Serial && pio lib install uuid-common
-	# Workaround for https://github.com/platformio/platformio-core/issues/3673
-	git checkout -- build/example-Serial/platformio.ini
+	cd build/example-Serial && pio lib install --no-save nomis/uuid-common
 	platformio run -d build/example-Serial
 	build/example-Serial/.pio/build/native/program >../examples/Serial.txt
 
