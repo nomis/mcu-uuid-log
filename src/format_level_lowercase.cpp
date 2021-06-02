@@ -38,7 +38,7 @@ static constexpr const char *pstr_level_lowercase_debug __attribute__((__aligned
 static constexpr const char *pstr_level_lowercase_trace __attribute__((__aligned__(sizeof(int)))) PROGMEM = "trace";
 static constexpr const char *pstr_level_lowercase_all __attribute__((__aligned__(sizeof(int)))) PROGMEM = "all";
 
-static constexpr const __FlashStringHelper *log_level_lowercase[(int)Level::ALL - (int)Level::OFF + 1] __attribute__((__aligned__(sizeof(int)))) PROGMEM = {
+static const __FlashStringHelper *log_level_lowercase[(int)Level::ALL - (int)Level::OFF + 1] __attribute__((__aligned__(sizeof(int)))) PROGMEM = {
 	reinterpret_cast<const __FlashStringHelper *>(pstr_level_lowercase_off),
 	reinterpret_cast<const __FlashStringHelper *>(pstr_level_lowercase_emerg),
 	reinterpret_cast<const __FlashStringHelper *>(pstr_level_lowercase_crit),

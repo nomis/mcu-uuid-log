@@ -4,6 +4,12 @@ Change log
 Unreleased_
 -----------
 
+Fixed
+~~~~~
+
+* Compile failure with newer GCC in espressif8266 3.0.0 using
+  ``reinterpret_cast`` for a ``constexpr`` value.
+
 2.1.3_ |--| 2021-04-18
 ----------------------
 
