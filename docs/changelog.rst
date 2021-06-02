@@ -4,6 +4,11 @@ Change log
 Unreleased_
 -----------
 
+2.1.4_ |--| 2021-06-02
+----------------------
+
+Fix for compile failure with newer GCC in espressif8266 3.0.0.
+
 Fixed
 ~~~~~
 
@@ -151,7 +156,8 @@ Added
 
 .. |--| unicode:: U+2013 .. EN DASH
 
-.. _Unreleased: https://github.com/nomis/mcu-uuid-log/compare/2.1.3...HEAD
+.. _Unreleased: https://github.com/nomis/mcu-uuid-log/compare/2.1.4...HEAD
+.. _2.1.4: https://github.com/nomis/mcu-uuid-log/compare/2.1.3...2.1.4
 .. _2.1.3: https://github.com/nomis/mcu-uuid-log/compare/2.1.2...2.1.3
 .. _2.1.2: https://github.com/nomis/mcu-uuid-log/compare/2.1.1...2.1.2
 .. _2.1.1: https://github.com/nomis/mcu-uuid-log/compare/2.1.0...2.1.1
