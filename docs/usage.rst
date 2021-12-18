@@ -33,10 +33,10 @@ Output
 .. literalinclude:: ../examples/Serial.txt
    :language: none
 
-.. |uuid::log::Logger| replace:: ``uuid::log:Logger``
+.. |uuid::log::Logger| replace:: ``uuid::log::Logger``
 .. _uuid::log::Logger: https://mcu-doxygen.uuid.uk/classuuid_1_1log_1_1Logger.html
 
-.. |uuid::log::Handler| replace:: ``uuid::log:Handler``
+.. |uuid::log::Handler| replace:: ``uuid::log::Handler``
 .. _uuid::log::Handler: https://mcu-doxygen.uuid.uk/classuuid_1_1log_1_1Handler.html
 
 .. |Logger::enabled(LogLevel)| replace:: ``Logger::enabled(LogLevel)``
