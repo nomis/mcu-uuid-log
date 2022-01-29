@@ -4,6 +4,11 @@ Change log
 Unreleased_
 -----------
 
+2.2.0_ |--| 2022-01-29
+----------------------
+
+Add a basic log handler for the Print interface.
+
 Added
 ~~~~~
 
@@ -162,7 +167,8 @@ Added
 
 .. |--| unicode:: U+2013 .. EN DASH
 
-.. _Unreleased: https://github.com/nomis/mcu-uuid-log/compare/2.1.4...HEAD
+.. _Unreleased: https://github.com/nomis/mcu-uuid-log/compare/2.2.0...HEAD
+.. _2.2.0: https://github.com/nomis/mcu-uuid-log/compare/2.1.4...2.2.0
 .. _2.1.4: https://github.com/nomis/mcu-uuid-log/compare/2.1.3...2.1.4
 .. _2.1.3: https://github.com/nomis/mcu-uuid-log/compare/2.1.2...2.1.3
 .. _2.1.2: https://github.com/nomis/mcu-uuid-log/compare/2.1.1...2.1.2
