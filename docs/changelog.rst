@@ -4,6 +4,12 @@ Change log
 Unreleased_
 -----------
 
+Added
+~~~~~
+
+* Basic log handler for writing messages to any object supporting the
+  ``Print`` interface (``PrintHandler``).
+
 2.1.4_ |--| 2021-06-02
 ----------------------
 

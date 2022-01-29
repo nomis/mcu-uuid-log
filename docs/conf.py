@@ -9,7 +9,7 @@ extensions = []
 source_suffix = ['.rst']
 
 project = u'mcu-uuid-log'
-copyright = u'2019-2021, Simon Arlott'
+copyright = u'2019-2022, Simon Arlott'
 author = u'Simon Arlott'
 
 master_doc = 'index'

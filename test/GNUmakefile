@@ -5,10 +5,16 @@ all: build native doxygen
 
 build:
 	rm -rf build/*/.pio
+
 	# Workaround for https://github.com/platformio/platformio-core/issues/2573
 	cd build/example-Serial && pio lib install --no-save nomis/uuid-common
 	platformio run -d build/example-Serial
 	build/example-Serial/.pio/build/native/program >../examples/Serial.txt
+
+	# Workaround for https://github.com/platformio/platformio-core/issues/2573
+	cd build/example-PrintHandler && pio lib install --no-save nomis/uuid-common
+	platformio run -d build/example-PrintHandler
+	build/example-PrintHandler/.pio/build/native/program >../examples/PrintHandler.txt
 
 native:
 	rm -rf native/.pio

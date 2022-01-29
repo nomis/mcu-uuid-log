@@ -1,6 +1,6 @@
 /*
  * uuid-log - Microcontroller logging framework
- * Copyright 2019,2021  Simon Arlott
+ * Copyright 2019,2021-2022  Simon Arlott
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -617,6 +617,72 @@ private:
 
 	const __FlashStringHelper *name_; /*!< Logger name (flash string). @since 1.0.0 */
 	const Facility facility_; /*!< Default logging facility for messages. @since 1.0.0 */
+};
+
+/**
+ * Basic log handler for writing messages to any object supporting the
+ * Print interface.
+ *
+ * Outputs all queued messages by default, which may result in the
+ * application blocking until writes complete if the Print destination
+ * buffer is full.
+ *
+ * @since 2.2.0
+ */
+class PrintHandler: public uuid::log::Handler {
+public:
+	static constexpr size_t MAX_LOG_MESSAGES = 50; /*!< Maximum number of log messages to buffer before they are output. @since 2.2.0 */
+
+	/**
+	 * Create a new Print log handler.
+	 *
+	 * @param[in] print Destination for output of log messages.
+	 * @since 2.2.0
+	 */
+	PrintHandler(Print &print);
+	~PrintHandler() = default;
+
+	/**
+	 * Get the maximum number of queued log messages.
+	 *
+	 * @return The maximum number of queued log messages.
+	 * @since 2.2.0
+	 */
+	size_t maximum_log_messages() const;
+	/**
+	 * Set the maximum number of queued log messages.
+	 *
+	 * Defaults to PrintHandler::MAX_LOG_MESSAGES.
+	 *
+	 * @since 2.2.0
+	 */
+	void maximum_log_messages(size_t count);
+
+	/**
+	 * Dispatch queued log messages.
+	 *
+	 * @param[in] count Maximum number of messages to output.
+	 * @since 2.2.0
+	 */
+	void loop(size_t count = SIZE_MAX);
+
+	/**
+	 * Add a new log message.
+	 *
+	 * This will be put in a queue for output at the next loop()
+	 * process. The queue has a maximum size of
+	 * get_maximum_log_messages() and will discard the oldest message
+	 * first.
+	 *
+	 * @param[in] message New log message, shared by all handlers.
+	 * @since 2.2.0
+	 */
+	virtual void operator<<(std::shared_ptr<Message> message);
+
+private:
+	Print &print_; /*!< Destination for output of log messages. @since 2.2.0 */
+	size_t maximum_log_messages_ = MAX_LOG_MESSAGES; /*!< Maximum number of log messages to buffer before they are output. @since 2.2.0 */
+	std::list<std::shared_ptr<Message>> log_messages_; /*!< Queued log messages, in the order they were received. @since 2.2.0 */
 };
 
 } // namespace log

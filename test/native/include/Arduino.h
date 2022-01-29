@@ -1,6 +1,6 @@
 /*
  * uuid-log - Microcontroller logging framework
- * Copyright 2019  Simon Arlott
+ * Copyright 2019,2022  Simon Arlott
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,7 +19,10 @@
 #ifndef ARDUINO_H_
 #define ARDUINO_H_
 
-#include <string.h>
+#include <cstddef>
+#include <cstdint>
+#include <cstring>
+#include <string>
 
 #define PROGMEM
 #define PGM_P const char *
@@ -32,5 +35,37 @@ class __FlashStringHelper;
 #define strcmp_P strcmp
 #define snprintf_P snprintf
 #define vsnprintf_P vsnprintf
+
+class Print;
+
+class Printable {
+public:
+    virtual size_t printTo(Print &print) const = 0;
+};
+
+class Print {
+public:
+    virtual size_t write(uint8_t c) = 0;
+    virtual size_t write(const uint8_t *buffer, size_t size) = 0;
+    size_t print(char c) { return write((uint8_t)c); }
+    size_t print(const char *data) { return write(reinterpret_cast<const uint8_t *>(data), strlen(data)); }
+    size_t print(const __FlashStringHelper *data) { return print(reinterpret_cast<const char *>(data)); }
+    size_t print(const Printable &printable) { return printable.printTo(*this); }
+    size_t print(int value) { return print(std::to_string(value).c_str()); }
+    size_t print(unsigned int value) { return print(std::to_string(value).c_str()); }
+    size_t print(long value) { return print(std::to_string(value).c_str()); }
+    size_t print(unsigned long value) { return print(std::to_string(value).c_str()); }
+    size_t println() { return print("\r\n"); }
+    size_t println(const char *data) { return print(data) + println(); }
+    size_t println(const __FlashStringHelper *data) { return print(reinterpret_cast<const char *>(data)) + println(); }
+    size_t println(const Printable &printable) { return printable.printTo(*this) + println(); }
+    size_t println(int value) { return print(std::to_string(value).c_str()) + println(); }
+    size_t println(unsigned int value) { return print(std::to_string(value).c_str()) + println(); }
+    size_t println(long value) { return print(std::to_string(value).c_str()) + println(); }
+    size_t println(unsigned long value) { return print(std::to_string(value).c_str()) + println(); }
+    virtual void flush() { };
+};
+
+static __attribute__((unused)) void yield(void) { }
 
 #endif
