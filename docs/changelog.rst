@@ -4,6 +4,11 @@ Change log
 Unreleased_
 -----------
 
+Added
+~~~~~
+
+* Function to get a ``Logger``'s default facility for new messages.
+
 2.2.0_ |--| 2022-01-29
 ----------------------
 

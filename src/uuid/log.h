@@ -372,6 +372,14 @@ public:
 	static inline bool enabled(Level level) { return level <= level_; }
 
 	/**
+	 * Get the default logging facility for new messages of this logger.
+	 *
+	 * @return The default logging facility for messages.
+	 * @since 2.3.0
+	 */
+	inline Facility facility() const { return facility_; }
+
+	/**
 	 * Log a message at level Level::EMERG.
 	 *
 	 * @param[in] format Format string.
