@@ -21,6 +21,9 @@
 #include <Arduino.h>
 
 #include <memory>
+#if UUID_LOG_THREAD_SAFE
+# include <mutex>
+#endif
 
 namespace uuid {
 
@@ -30,10 +33,18 @@ PrintHandler::PrintHandler(::Print &print) : print_(print) {
 }
 
 size_t PrintHandler::maximum_log_messages() const {
+#if UUID_LOG_THREAD_SAFE
+	std::lock_guard<std::mutex> lock{mutex_};
+#endif
+
 	return maximum_log_messages_;
 }
 
 void PrintHandler::maximum_log_messages(size_t count) {
+#if UUID_LOG_THREAD_SAFE
+	std::lock_guard<std::mutex> lock{mutex_};
+#endif
+
 	maximum_log_messages_ = std::max((size_t)1, count);
 
 	while (log_messages_.size() > maximum_log_messages_) {
@@ -42,10 +53,18 @@ void PrintHandler::maximum_log_messages(size_t count) {
 }
 
 void PrintHandler::loop(size_t count) {
+#if UUID_LOG_THREAD_SAFE
+	std::unique_lock<std::mutex> lock{mutex_};
+#endif
+
 	count = std::max((size_t)1, count);
 
-	while (count-- > 0 && !log_messages_.empty()) {
+	while (!log_messages_.empty()) {
 		auto message = log_messages_.front();
+
+#if UUID_LOG_THREAD_SAFE
+		lock.unlock();
+#endif
 
 		print_.print(uuid::log::format_timestamp_ms(message->uptime_ms, 3).c_str());
 		print_.print(' ');
@@ -55,12 +74,34 @@ void PrintHandler::loop(size_t count) {
 		print_.print(F("] "));
 		print_.println(message->text.c_str());
 
-		log_messages_.pop_front();
+#if UUID_LOG_THREAD_SAFE
+		lock.lock();
+#endif
+		if (log_messages_.front() == message) {
+			log_messages_.pop_front();
+		}
+#if UUID_LOG_THREAD_SAFE
+		lock.unlock();
+#endif
+
+		count--;
+		if (count == 0) {
+			break;
+		}
+
 		::yield();
+
+#if UUID_LOG_THREAD_SAFE
+		lock.lock();
+#endif
 	}
 }
 
 void PrintHandler::operator<<(std::shared_ptr<Message> message) {
+#if UUID_LOG_THREAD_SAFE
+	std::lock_guard<std::mutex> lock{mutex_};
+#endif
+
 	if (log_messages_.size() >= maximum_log_messages_) {
 		log_messages_.pop_front();
 	}

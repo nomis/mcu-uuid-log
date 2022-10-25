@@ -1,6 +1,6 @@
 /*
  * uuid-log - Microcontroller logging framework
- * Copyright 2019,2021  Simon Arlott
+ * Copyright 2019,2021-2022  Simon Arlott
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -26,6 +26,7 @@ namespace uuid {
 
 namespace log {
 
+//! @cond false
 static constexpr const char *pstr_level_lowercase_off __attribute__((__aligned__(sizeof(int)))) PROGMEM = "off";
 static constexpr const char *pstr_level_lowercase_emerg __attribute__((__aligned__(sizeof(int)))) PROGMEM = "emerg";
 static constexpr const char *pstr_level_lowercase_crit __attribute__((__aligned__(sizeof(int)))) PROGMEM = "crit";
@@ -51,6 +52,7 @@ static const __FlashStringHelper *log_level_lowercase[(int)Level::ALL - (int)Lev
 	reinterpret_cast<const __FlashStringHelper *>(pstr_level_lowercase_trace),
 	reinterpret_cast<const __FlashStringHelper *>(pstr_level_lowercase_all)
 };
+//! @endcond
 
 const __FlashStringHelper *format_level_lowercase(Level level) {
 	return log_level_lowercase[(int)level + 1];

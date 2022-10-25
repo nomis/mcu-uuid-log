@@ -21,6 +21,7 @@
 
 #include <Arduino.h>
 
+#include <atomic>
 #include <cstdarg>
 #include <cstdint>
 #include <list>
@@ -30,6 +31,24 @@
 #include <vector>
 
 #include <uuid/common.h>
+
+#ifndef UUID_COMMON_THREAD_SAFE
+# define UUID_COMMON_THREAD_SAFE 0
+#endif
+
+#ifndef UUID_COMMON_STD_MUTEX_AVAILABLE
+# define UUID_COMMON_STD_MUTEX_AVAILABLE 0
+#endif
+
+#if defined(DOXYGEN) || UUID_COMMON_STD_MUTEX_AVAILABLE
+# define UUID_LOG_THREAD_SAFE 1
+#else
+# define UUID_LOG_THREAD_SAFE 0
+#endif
+
+#if UUID_LOG_THREAD_SAFE
+# include <mutex>
+#endif
 
 namespace uuid {
 
@@ -44,6 +63,17 @@ namespace uuid {
  * - <a href="https://mcu-uuid-log.readthedocs.io/">Documentation</a>
  */
 namespace log {
+
+/**
+ * Thread-safe status of the library.
+ *
+ * @since 2.3.0
+ */
+#if UUID_COMMON_THREAD_SAFE && UUID_LOG_THREAD_SAFE
+static constexpr bool thread_safe = true;
+#else
+static constexpr bool thread_safe = false;
+#endif
 
 /**
  * Severity level of log messages.
@@ -274,8 +304,19 @@ public:
 	 * processed immediately so that log messages have minimal impact
 	 * at the time of use.
 	 *
+	 * Handlers must avoid holding a lock on a mutex used for adding
+	 * messages while processing those messages. Release the lock while
+	 * performing the processing.
+	 *
 	 * Queues should have a maximum size and discard the oldest message
 	 * when full.
+	 *
+	 * It is not safe for the handler to directly or indirectly do any
+	 * of the following while this function is being called:
+	 * - Log a message.
+	 * - Read the log level of any handler.
+	 * - Modify the log level of any handler.
+	 * - Unregister any handler.
 	 *
 	 * @param[in] message New log message, shared by all handlers.
 	 * @since 1.0.0
@@ -621,7 +662,10 @@ private:
 	 */
 	void dispatch(Level level, Facility facility, std::vector<char> &text) const;
 
-	static Level level_; /*!< Minimum global log level across all handlers. @since 1.0.0 */
+	static std::atomic<Level> level_; /*!< Minimum global log level across all handlers. @since 1.0.0 */
+#if UUID_LOG_THREAD_SAFE
+	static std::mutex mutex_; /*!< Mutex for handlers. @since 2.3.0 */
+#endif
 
 	const __FlashStringHelper *name_; /*!< Logger name (flash string). @since 1.0.0 */
 	const Facility facility_; /*!< Default logging facility for messages. @since 1.0.0 */
@@ -689,6 +733,9 @@ public:
 
 private:
 	Print &print_; /*!< Destination for output of log messages. @since 2.2.0 */
+#if UUID_LOG_THREAD_SAFE
+	mutable std::mutex mutex_; /*!< Mutex for configuration, state and queued log messages. @since 2.3.0 */
+#endif
 	size_t maximum_log_messages_ = MAX_LOG_MESSAGES; /*!< Maximum number of log messages to buffer before they are output. @since 2.2.0 */
 	std::list<std::shared_ptr<Message>> log_messages_; /*!< Queued log messages, in the order they were received. @since 2.2.0 */
 };

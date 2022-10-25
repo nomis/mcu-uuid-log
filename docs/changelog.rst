@@ -8,6 +8,13 @@ Added
 ~~~~~
 
 * Function to get a ``Logger``'s default facility for new messages.
+* Indicate whether this version of the library is thread-safe or not
+  (``UUID_LOG_THREAD_SAFE`` and ``uuid::log::thread_safe``).
+
+Changed
+~~~~~~~
+
+* Make the library thread-safe when supported by the platform.
 
 2.2.0_ |--| 2022-01-29
 ----------------------

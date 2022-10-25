@@ -9,9 +9,8 @@ Microcontroller logging framework library
 Purpose
 -------
 
-Provides a framework for handling log messages. This library is for
-single threaded applications and cannot be used from an interrupt
-context.
+Provides a framework for handling log messages. Thread-safe on the ESP32
+but cannot be used from an interrupt context.
 
 Dependencies
 ------------

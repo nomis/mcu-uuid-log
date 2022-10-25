@@ -1,6 +1,6 @@
 /*
  * uuid-log - Microcontroller logging framework
- * Copyright 2019,2021  Simon Arlott
+ * Copyright 2019,2021-2022  Simon Arlott
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,11 +20,15 @@
 
 #include <Arduino.h>
 
+#include <atomic>
 #include <cstdarg>
 #include <cstdint>
 #include <list>
 #include <map>
 #include <memory>
+#if UUID_LOG_THREAD_SAFE
+# include <mutex>
+#endif
 #include <string>
 #include <utility>
 #include <vector>
@@ -33,7 +37,10 @@ namespace uuid {
 
 namespace log {
 
-Level Logger::level_ = Level::OFF;
+std::atomic<Level> Logger::level_{Level::OFF};
+#if UUID_LOG_THREAD_SAFE
+std::mutex Logger::mutex_;
+#endif
 
 Message::Message(uint64_t uptime_ms, Level level, Facility facility, const __FlashStringHelper *name, const std::string &&text)
 		: uptime_ms(uptime_ms), level(level), facility(facility), name(name), text(std::move(text)) {
@@ -51,6 +58,9 @@ std::shared_ptr<std::map<Handler*,Level>>& Logger::registered_handlers() {
 }
 
 void Logger::register_handler(Handler *handler, Level level) {
+#if UUID_LOG_THREAD_SAFE
+	std::lock_guard<std::mutex> lock{mutex_};
+#endif
 	auto& handlers = registered_handlers();
 
 	handler->handlers_ = handlers;
@@ -62,6 +72,10 @@ void Logger::unregister_handler(Handler *handler) {
 	auto handlers = handler->handlers_.lock();
 
 	if (handlers) {
+#if UUID_LOG_THREAD_SAFE
+		std::lock_guard<std::mutex> lock{mutex_};
+#endif
+
 		if (handlers->erase(handler)) {
 			refresh_log_level();
 		}
@@ -69,6 +83,9 @@ void Logger::unregister_handler(Handler *handler) {
 };
 
 Level Logger::get_log_level(const Handler *handler) {
+#if UUID_LOG_THREAD_SAFE
+	std::lock_guard<std::mutex> lock{mutex_};
+#endif
 	auto& handlers = registered_handlers();
 
 	const auto level = handlers->find(const_cast<Handler*>(handler));
@@ -323,6 +340,10 @@ void Logger::dispatch(Level level, Facility facility, std::vector<char> &text) c
 	std::shared_ptr<Message> message = std::make_shared<Message>(get_uptime_ms(), level, facility, name_, text.data());
 	text.resize(0);
 
+#if UUID_LOG_THREAD_SAFE
+	std::lock_guard<std::mutex> lock{mutex_};
+#endif
+
 	for (auto &handler : *registered_handlers()) {
 		if (level <= handler.second) {
 			*handler.first << message;
@@ -330,14 +351,17 @@ void Logger::dispatch(Level level, Facility facility, std::vector<char> &text) c
 	}
 }
 
+/* Mutex already locked by caller. */
 void Logger::refresh_log_level() {
-	level_ = Level::OFF;
+	Level level = Level::OFF;
 
 	for (auto &handler : *registered_handlers()) {
-		if (level_ < handler.second) {
-			level_ = handler.second;
+		if (level < handler.second) {
+			level = handler.second;
 		}
 	}
+
+	level_ = level;
 }
 
 } // namespace log
