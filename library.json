@@ -12,7 +12,7 @@
 		"type": "git",
 		"url": "https://github.com/nomis/mcu-uuid-log.git"
 	},
-	"version": "2.2.0",
+	"version": "2.3.0",
 	"license": "GPL-3.0-or-later",
 	"homepage": "https://mcu-uuid-log.readthedocs.io/",
 	"export": {
