@@ -36,7 +36,7 @@ uint64_t get_uptime_ms() {
 } // namespace uuid
 
 /*
- * Verify the process used by PrintHandler::loop() to check for changes
+ * Verify the process used by SyslogService::loop() to check for changes
  * in the messages after processing the front() message.
  */
 void test() {

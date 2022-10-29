@@ -62,6 +62,7 @@ void PrintHandler::loop(size_t count) {
 	while (!log_messages_.empty()) {
 		auto message = log_messages_.front();
 
+		log_messages_.pop_front();
 #if UUID_LOG_THREAD_SAFE
 		lock.unlock();
 #endif
@@ -73,16 +74,6 @@ void PrintHandler::loop(size_t count) {
 		print_.print(message->name);
 		print_.print(F("] "));
 		print_.println(message->text.c_str());
-
-#if UUID_LOG_THREAD_SAFE
-		lock.lock();
-#endif
-		if (log_messages_.front() == message) {
-			log_messages_.pop_front();
-		}
-#if UUID_LOG_THREAD_SAFE
-		lock.unlock();
-#endif
 
 		count--;
 		if (count == 0) {

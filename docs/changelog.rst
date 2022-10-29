@@ -4,6 +4,12 @@ Change log
 Unreleased_
 -----------
 
+Changed
+~~~~~~~
+
+* Make ``PrintHandler`` more efficient by removing the log message
+  before printing it.
+
 2.3.0_ |--| 2022-10-25
 ----------------------
 
