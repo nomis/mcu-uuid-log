@@ -9,6 +9,7 @@ Changed
 
 * Make ``PrintHandler`` more efficient by removing the log message
   before printing it.
+* Use ``PSTR_ALIGN`` for flash strings.
 
 2.3.0_ |--| 2022-10-25
 ----------------------
