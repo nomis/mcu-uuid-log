@@ -37,7 +37,7 @@ namespace uuid {
 
 namespace log {
 
-std::atomic<Level> Logger::level_{Level::OFF};
+std::atomic<Level> Logger::global_level_{Level::OFF};
 #if UUID_LOG_THREAD_SAFE
 std::mutex Logger::mutex_;
 #endif
@@ -361,7 +361,7 @@ void Logger::refresh_log_level() {
 		}
 	}
 
-	level_ = level;
+	global_level_ = level;
 }
 
 } // namespace log

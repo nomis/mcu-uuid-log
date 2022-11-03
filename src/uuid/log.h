@@ -21,6 +21,7 @@
 
 #include <Arduino.h>
 
+#include <algorithm>
 #include <atomic>
 #include <cstdarg>
 #include <cstdint>
@@ -403,14 +404,22 @@ public:
 	static Level get_log_level(const Handler *handler);
 
 	/**
-	 * Determine if the current log level is enabled by any registered
-	 * handlers.
+	 * Get the current global log level.
 	 *
-	 * @return The current minimum global log level across all
-	 *         handlers.
-	 * @since 1.0.0
+	 * @return The minimum log level across all handlers.
+	 * @since 3.0.0
 	 */
-	static inline bool enabled(Level level) { return level <= level_; }
+	static Level global_level() { return global_level_; };
+
+	/**
+	 * Determine if the specified log level is enabled by the effective
+	 * log level.
+	 *
+	 * @param[in] level Log level to check.
+	 * @return If the specified log level is enabled on this logger.
+	 * @since 3.0.0
+	 */
+	inline bool enabled(Level level) const { return level <= global_level_ && level <= local_level_; }
 
 	/**
 	 * Get the default logging facility for new messages of this logger.
@@ -419,6 +428,34 @@ public:
 	 * @since 2.3.0
 	 */
 	inline Facility facility() const { return facility_; }
+
+	/**
+	 * Get the log level.
+	 *
+	 * The effective log level will be depend on handlers.
+	 *
+	 * @return The log level of this logger.
+	 * @since 3.0.0
+	 */
+	inline Level level() const { return local_level_; }
+
+	/**
+	 * Set the log level.
+	 *
+	 * The effective log level will be depend on handlers.
+	 *
+	 * @param[in] level Log level for this logger.
+	 * @since 3.0.0
+	 */
+	inline void level(Level level) { local_level_ = level; }
+
+	/**
+	 * Get the effective log level.
+	 *
+	 * @return The effective log level for this logger.
+	 * @since 3.0.0
+	 */
+	Level effective_level() const { return std::min(global_level(), local_level_); };
 
 	/**
 	 * Log a message at level Level::EMERG.
@@ -662,13 +699,14 @@ private:
 	 */
 	void dispatch(Level level, Facility facility, std::vector<char> &text) const;
 
-	static std::atomic<Level> level_; /*!< Minimum global log level across all handlers. @since 1.0.0 */
+	static std::atomic<Level> global_level_; /*!< Minimum global log level across all handlers. @since 3.0.0 */
 #if UUID_LOG_THREAD_SAFE
 	static std::mutex mutex_; /*!< Mutex for handlers. @since 2.3.0 */
 #endif
 
 	const __FlashStringHelper *name_; /*!< Logger name (flash string). @since 1.0.0 */
 	const Facility facility_; /*!< Default logging facility for messages. @since 1.0.0 */
+	Level local_level_{Level::ALL}; /*!< Logger level. @since 3.0.0 */
 };
 
 /**
