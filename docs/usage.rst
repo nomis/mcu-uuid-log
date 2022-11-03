@@ -40,4 +40,4 @@ Output
 .. _uuid::log::Handler: https://mcu-doxygen.uuid.uk/classuuid_1_1log_1_1Handler.html
 
 .. |Logger::enabled(LogLevel)| replace:: ``Logger::enabled(LogLevel)``
-.. _Logger::enabled(LogLevel): https://mcu-doxygen.uuid.uk/classuuid_1_1log_1_1Logger.html#af16363367efa67c17c368b9c2bacf0dd
+.. _Logger::enabled(LogLevel): https://mcu-doxygen.uuid.uk/classuuid_1_1log_1_1Logger.html#a0a9b7b081a24c103b4c4df7029f81c27
