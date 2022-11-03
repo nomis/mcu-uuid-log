@@ -10,6 +10,8 @@ Added
 * Support setting a level on each ``Logger``.
 * Function to get the global log level.
 * Function to get the effective log level on a ``Logger``.
+* Support logging messages at a specific level without providing the
+  facility.
 
 Changed
 ~~~~~~~

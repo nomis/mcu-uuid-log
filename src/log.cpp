@@ -42,6 +42,17 @@ std::atomic<Level> Logger::global_level_{Level::OFF};
 std::mutex Logger::mutex_;
 #endif
 
+//! @cond false
+static Level constrain_level(Level level) {
+	if (level < Level::EMERG) {
+		level = Level::EMERG;
+	} else if (level > Level::TRACE) {
+		level = Level::TRACE;
+	}
+	return level;
+}
+//! @endcond
+
 Message::Message(uint64_t uptime_ms, Level level, Facility facility, const __FlashStringHelper *name, const std::string &&text)
 		: uptime_ms(uptime_ms), level(level), facility(facility), name(name), text(std::move(text)) {
 }
@@ -276,12 +287,32 @@ void Logger::trace(const __FlashStringHelper *format, ...) const {
 	}
 };
 
-void Logger::log(Level level, Facility facility, const char *format, ...) const {
-	if (level < Level::EMERG) {
-		level = Level::EMERG;
-	} else if (level > Level::TRACE) {
-		level = Level::TRACE;
+void Logger::log(Level level, const char *format, ...) const {
+	level = constrain_level(level);
+
+	if (enabled(level)) {
+		va_list ap;
+
+		va_start(ap, format);
+		vlog(level, format, ap);
+		va_end(ap);
 	}
+};
+
+void Logger::log(Level level, const __FlashStringHelper *format, ...) const {
+	level = constrain_level(level);
+
+	if (enabled(level)) {
+		va_list ap;
+
+		va_start(ap, format);
+		vlog(level, format, ap);
+		va_end(ap);
+	}
+};
+
+void Logger::log(Level level, Facility facility, const char *format, ...) const {
+	level = constrain_level(level);
 
 	if (enabled(level)) {
 		va_list ap;
@@ -293,11 +324,7 @@ void Logger::log(Level level, Facility facility, const char *format, ...) const 
 };
 
 void Logger::log(Level level, Facility facility, const __FlashStringHelper *format, ...) const {
-	if (level < Level::EMERG) {
-		level = Level::EMERG;
-	} else if (level > Level::TRACE) {
-		level = Level::TRACE;
-	}
+	level = constrain_level(level);
 
 	if (enabled(level)) {
 		va_list ap;

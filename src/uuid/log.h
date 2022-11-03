@@ -610,6 +610,25 @@ public:
 	void trace(const __FlashStringHelper *format, ...) const /* __attribute__((format (printf, 2, 3))) */;
 
 	/**
+	 * Log a message with default facility.
+	 *
+	 * @param[in] level Severity level of the message.
+	 * @param[in] format Format string.
+	 * @param[in] ... Format string arguments.
+	 * @since 3.0.0
+	 */
+	void log(Level level, const char *format, ...) const /* __attribute__((format (printf, 3, 4))) */;
+	/**
+	 * Log a message with default facility.
+	 *
+	 * @param[in] level Severity level of the message.
+	 * @param[in] format Format string (flash string).
+	 * @param[in] ... Format string arguments.
+	 * @since 3.0.0
+	 */
+	void log(Level level, const __FlashStringHelper *format, ...) const /* __attribute__((format (printf, 3, 4))) */;
+
+	/**
 	 * Log a message with a custom facility.
 	 *
 	 * @param[in] level Severity level of the message.
@@ -618,7 +637,7 @@ public:
 	 * @param[in] ... Format string arguments.
 	 * @since 1.0.0
 	 */
-	void log(Level level, Facility facility, const char *format, ...) const /* __attribute__((format (printf, 3, 4))) */;
+	void log(Level level, Facility facility, const char *format, ...) const /* __attribute__((format (printf, 4, 5))) */;
 	/**
 	 * Log a message with a custom facility.
 	 *
