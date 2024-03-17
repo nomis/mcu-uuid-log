@@ -4,6 +4,11 @@ Change log
 Unreleased_
 -----------
 
+3.1.0_ |--| 2024-03-17
+----------------------
+
+Support forwarding plain and formatted messages to the ``Logger``.
+
 Added
 ~~~~~
 
@@ -213,7 +218,8 @@ Added
 
 .. |--| unicode:: U+2013 .. EN DASH
 
-.. _Unreleased: https://github.com/nomis/mcu-uuid-log/compare/3.0.0...HEAD
+.. _Unreleased: https://github.com/nomis/mcu-uuid-log/compare/3.1.0...HEAD
+.. _3.1.0: https://github.com/nomis/mcu-uuid-log/compare/3.0.0...3.1.0
 .. _3.0.0: https://github.com/nomis/mcu-uuid-log/compare/2.3.0...3.0.0
 .. _2.3.0: https://github.com/nomis/mcu-uuid-log/compare/2.2.0...2.3.0
 .. _2.2.0: https://github.com/nomis/mcu-uuid-log/compare/2.1.4...2.2.0
