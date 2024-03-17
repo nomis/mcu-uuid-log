@@ -1,6 +1,6 @@
 /*
  * uuid-log - Microcontroller logging framework
- * Copyright 2019,2021-2022  Simon Arlott
+ * Copyright 2019,2021-2024  Simon Arlott
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -113,7 +113,7 @@ void Logger::emerg(const char *format, ...) const {
 		va_list ap;
 
 		va_start(ap, format);
-		vlog(Level::EMERG, format, ap);
+		vlog_internal(Level::EMERG, facility_, format, ap);
 		va_end(ap);
 	}
 };
@@ -123,7 +123,7 @@ void Logger::emerg(const __FlashStringHelper *format, ...) const {
 		va_list ap;
 
 		va_start(ap, format);
-		vlog(Level::EMERG, format, ap);
+		vlog_internal(Level::EMERG, facility_, format, ap);
 		va_end(ap);
 	}
 };
@@ -133,7 +133,7 @@ void Logger::crit(const char *format, ...) const {
 		va_list ap;
 
 		va_start(ap, format);
-		vlog(Level::CRIT, format, ap);
+		vlog_internal(Level::CRIT, facility_, format, ap);
 		va_end(ap);
 	}
 };
@@ -143,7 +143,7 @@ void Logger::crit(const __FlashStringHelper *format, ...) const {
 		va_list ap;
 
 		va_start(ap, format);
-		vlog(Level::CRIT, format, ap);
+		vlog_internal(Level::CRIT, facility_, format, ap);
 		va_end(ap);
 	}
 };
@@ -153,7 +153,7 @@ void Logger::alert(const char *format, ...) const {
 		va_list ap;
 
 		va_start(ap, format);
-		vlog(Level::ALERT, format, ap);
+		vlog_internal(Level::ALERT, facility_, format, ap);
 		va_end(ap);
 	}
 };
@@ -163,7 +163,7 @@ void Logger::alert(const __FlashStringHelper *format, ...) const {
 		va_list ap;
 
 		va_start(ap, format);
-		vlog(Level::ALERT, format, ap);
+		vlog_internal(Level::ALERT, facility_, format, ap);
 		va_end(ap);
 	}
 };
@@ -172,7 +172,7 @@ void Logger::err(const char *format, ...) const {
 		va_list ap;
 
 		va_start(ap, format);
-		vlog(Level::ERR, format, ap);
+		vlog_internal(Level::ERR, facility_, format, ap);
 		va_end(ap);
 	}
 };
@@ -182,7 +182,7 @@ void Logger::err(const __FlashStringHelper *format, ...) const {
 		va_list ap;
 
 		va_start(ap, format);
-		vlog(Level::ERR, format, ap);
+		vlog_internal(Level::ERR, facility_, format, ap);
 		va_end(ap);
 	}
 };
@@ -192,7 +192,7 @@ void Logger::warning(const char *format, ...) const {
 		va_list ap;
 
 		va_start(ap, format);
-		vlog(Level::WARNING, format, ap);
+		vlog_internal(Level::WARNING, facility_, format, ap);
 		va_end(ap);
 	}
 };
@@ -202,7 +202,7 @@ void Logger::warning(const __FlashStringHelper *format, ...) const {
 		va_list ap;
 
 		va_start(ap, format);
-		vlog(Level::WARNING, format, ap);
+		vlog_internal(Level::WARNING, facility_, format, ap);
 		va_end(ap);
 	}
 };
@@ -212,7 +212,7 @@ void Logger::notice(const char *format, ...) const {
 		va_list ap;
 
 		va_start(ap, format);
-		vlog(Level::NOTICE, format, ap);
+		vlog_internal(Level::NOTICE, facility_, format, ap);
 		va_end(ap);
 	}
 };
@@ -222,7 +222,7 @@ void Logger::notice(const __FlashStringHelper *format, ...) const {
 		va_list ap;
 
 		va_start(ap, format);
-		vlog(Level::NOTICE, format, ap);
+		vlog_internal(Level::NOTICE, facility_, format, ap);
 		va_end(ap);
 	}
 };
@@ -232,7 +232,7 @@ void Logger::info(const char *format, ...) const {
 		va_list ap;
 
 		va_start(ap, format);
-		vlog(Level::INFO, format, ap);
+		vlog_internal(Level::INFO, facility_, format, ap);
 		va_end(ap);
 	}
 };
@@ -242,7 +242,7 @@ void Logger::info(const __FlashStringHelper *format, ...) const {
 		va_list ap;
 
 		va_start(ap, format);
-		vlog(Level::INFO, format, ap);
+		vlog_internal(Level::INFO, facility_, format, ap);
 		va_end(ap);
 	}
 };
@@ -252,7 +252,7 @@ void Logger::debug(const char *format, ...) const {
 		va_list ap;
 
 		va_start(ap, format);
-		vlog(Level::DEBUG, format, ap);
+		vlog_internal(Level::DEBUG, facility_, format, ap);
 		va_end(ap);
 	}
 };
@@ -262,7 +262,7 @@ void Logger::debug(const __FlashStringHelper *format, ...) const {
 		va_list ap;
 
 		va_start(ap, format);
-		vlog(Level::DEBUG, format, ap);
+		vlog_internal(Level::DEBUG, facility_, format, ap);
 		va_end(ap);
 	}
 };
@@ -272,7 +272,7 @@ void Logger::trace(const char *format, ...) const {
 		va_list ap;
 
 		va_start(ap, format);
-		vlog(Level::TRACE, format, ap);
+		vlog_internal(Level::TRACE, facility_, format, ap);
 		va_end(ap);
 	}
 };
@@ -282,7 +282,7 @@ void Logger::trace(const __FlashStringHelper *format, ...) const {
 		va_list ap;
 
 		va_start(ap, format);
-		vlog(Level::TRACE, format, ap);
+		vlog_internal(Level::TRACE, facility_, format, ap);
 		va_end(ap);
 	}
 };
@@ -294,7 +294,7 @@ void Logger::log(Level level, const char *format, ...) const {
 		va_list ap;
 
 		va_start(ap, format);
-		vlog(level, format, ap);
+		vlog_internal(level, facility_, format, ap);
 		va_end(ap);
 	}
 };
@@ -306,7 +306,7 @@ void Logger::log(Level level, const __FlashStringHelper *format, ...) const {
 		va_list ap;
 
 		va_start(ap, format);
-		vlog(level, format, ap);
+		vlog_internal(level, facility_, format, ap);
 		va_end(ap);
 	}
 };
@@ -318,7 +318,7 @@ void Logger::log(Level level, Facility facility, const char *format, ...) const 
 		va_list ap;
 
 		va_start(ap, format);
-		vlog(level, facility, format, ap);
+		vlog_internal(level, facility, format, ap);
 		va_end(ap);
 	}
 };
@@ -330,16 +330,44 @@ void Logger::log(Level level, Facility facility, const __FlashStringHelper *form
 		va_list ap;
 
 		va_start(ap, format);
-		vlog(level, facility, format, ap);
+		vlog_internal(level, facility, format, ap);
 		va_end(ap);
 	}
 };
 
 void Logger::vlog(Level level, const char *format, va_list ap) const {
-	vlog(level, facility_, format, ap);
+	level = constrain_level(level);
+
+	if (enabled(level)) {
+		vlog_internal(level, facility_, format, ap);
+	}
 }
 
 void Logger::vlog(Level level, Facility facility, const char *format, va_list ap) const {
+	level = constrain_level(level);
+
+	if (enabled(level)) {
+		vlog_internal(level, facility, format, ap);
+	}
+}
+
+void Logger::vlog(Level level, const __FlashStringHelper *format, va_list ap) const {
+	level = constrain_level(level);
+
+	if (enabled(level)) {
+		vlog_internal(level, facility_, format, ap);
+	}
+}
+
+void Logger::vlog(Level level, Facility facility, const __FlashStringHelper *format, va_list ap) const {
+	level = constrain_level(level);
+
+	if (enabled(level)) {
+		vlog_internal(level, facility, format, ap);
+	}
+}
+
+void Logger::vlog_internal(Level level, Facility facility, const char *format, va_list ap) const {
 	std::vector<char> text(MAX_LOG_LENGTH + 1);
 
 	if (vsnprintf(text.data(), text.size(), format, ap) <= 0) {
@@ -349,11 +377,7 @@ void Logger::vlog(Level level, Facility facility, const char *format, va_list ap
 	dispatch(level, facility, text);
 }
 
-void Logger::vlog(Level level, const __FlashStringHelper *format, va_list ap) const {
-	vlog(level, facility_, format, ap);
-}
-
-void Logger::vlog(Level level, Facility facility, const __FlashStringHelper *format, va_list ap) const {
+void Logger::vlog_internal(Level level, Facility facility, const __FlashStringHelper *format, va_list ap) const {
 	std::vector<char> text(MAX_LOG_LENGTH + 1);
 
 	if (vsnprintf_P(text.data(), text.size(), reinterpret_cast<PGM_P>(format), ap) <= 0) {
@@ -363,16 +387,33 @@ void Logger::vlog(Level level, Facility facility, const __FlashStringHelper *for
 	dispatch(level, facility, text);
 }
 
+void Logger::logp(Level level, const char *text) const {
+	logp(level, facility_, text);
+}
+
+void Logger::logp(Level level, Facility facility, const char *text) const {
+	level = constrain_level(level);
+
+	if (enabled(level)) {
+		std::shared_ptr<Message> message = std::make_shared<Message>(get_uptime_ms(), level, facility, name_, text);
+		dispatch(message);
+	}
+}
+
 void Logger::dispatch(Level level, Facility facility, std::vector<char> &text) const {
 	std::shared_ptr<Message> message = std::make_shared<Message>(get_uptime_ms(), level, facility, name_, text.data());
 	text.resize(0);
+	text.shrink_to_fit();
+	dispatch(message);
+}
 
+inline void Logger::dispatch(const std::shared_ptr<Message> &message) const {
 #if UUID_LOG_THREAD_SAFE
 	std::lock_guard<std::mutex> lock{mutex_};
 #endif
 
 	for (auto &handler : *registered_handlers()) {
-		if (level <= handler.second) {
+		if (message->level <= handler.second) {
 			*handler.first << message;
 		}
 	}

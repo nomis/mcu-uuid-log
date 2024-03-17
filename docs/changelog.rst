@@ -4,6 +4,14 @@ Change log
 Unreleased_
 -----------
 
+Added
+~~~~~
+
+* Make the ``vlog()`` functions public so that a variable number of
+  arguments can be passed directly to the logger.
+* Add ``logp()`` functions that allow plain text to be passed directly
+  to the logger without using formatting.
+
 3.0.0_ |--| 2022-11-03
 ----------------------
 

@@ -1,6 +1,6 @@
 /*
  * uuid-log - Microcontroller logging framework
- * Copyright 2019,2021-2022  Simon Arlott
+ * Copyright 2019,2021-2024  Simon Arlott
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -649,7 +649,89 @@ public:
 	 */
 	void log(Level level, Facility facility, const __FlashStringHelper *format, ...) const /* __attribute__((format (printf, 4, 5))) */;
 
+	/**
+	 * Log a message at the specified level.
+	 *
+	 * @param[in] level Severity level of the message.
+	 * @param[in] format Format string.
+	 * @param[in] ap Variable arguments pointer for format string.
+	 * @since 3.1.0
+	 */
+	void vlog(Level level, const char *format, va_list ap) const;
+	/**
+	 * Log a message at the specified level.
+	 *
+	 * @param[in] level Severity level of the message.
+	 * @param[in] format Format string (flash string).
+	 * @param[in] ap Variable arguments pointer for format string.
+	 * @since 3.1.0
+	 */
+	void vlog(Level level, const __FlashStringHelper *format, va_list ap) const;
+
+	/**
+	 * Log a message at the specified level and facility.
+	 *
+	 * @param[in] level Severity level of the message.
+	 * @param[in] facility Facility type of the process logging the message.
+	 * @param[in] format Format string.
+	 * @param[in] ap Variable arguments pointer for format string.
+	 * @since 3.1.0
+	 */
+	void vlog(Level level, Facility facility, const char *format, va_list ap) const;
+	/**
+	 * Log a message at the specified level and facility.
+	 *
+	 * @param[in] level Severity level of the message.
+	 * @param[in] facility Facility type of the process logging the message.
+	 * @param[in] format Format string (flash string).
+	 * @param[in] ap Variable arguments pointer for format string.
+	 * @since 3.1.0
+	 */
+	void vlog(Level level, Facility facility, const __FlashStringHelper *format, va_list ap) const;
+
+	/**
+	 * Log a plain message (without formatting) at the specified level.
+	 *
+	 * @param[in] level Severity level of the message.
+	 * @param[in] text Text for the message.
+	 * @since 3.1.0
+	 */
+	void logp(Level level, const char *text) const;
+	/**
+	 * Log an plain message (without formatting) at the specified level and
+	 * facility.
+	 *
+	 * @param[in] level Severity level of the message.
+	 * @param[in] facility Facility type of the process logging the message.
+	 * @param[in] text Text for the message.
+	 * @since 3.1.0
+	 */
+	void logp(Level level, Facility facility, const char *text) const;
+
 private:
+	/**
+	 * Log a message at the specified level and facility without checking that
+	 * the specified level is enabled.
+	 *
+	 * @param[in] level Severity level of the message.
+	 * @param[in] facility Facility type of the process logging the message.
+	 * @param[in] format Format string.
+	 * @param[in] ap Variable arguments pointer for format string.
+	 * @since 3.1.0
+	 */
+	void vlog_internal(Level level, Facility facility, const char *format, va_list ap) const;
+	/**
+	 * Log a message at the specified level and facility without checking that
+	 * the specified level is enabled.
+	 *
+	 * @param[in] level Severity level of the message.
+	 * @param[in] facility Facility type of the process logging the message.
+	 * @param[in] format Format string (flash string).
+	 * @param[in] ap Variable arguments pointer for format string.
+	 * @since 3.1.0
+	 */
+	void vlog_internal(Level level, Facility facility, const __FlashStringHelper *format, va_list ap) const;
+
 	/**
 	 * Refresh the minimum global log level across all handlers.
 	 *
@@ -665,46 +747,6 @@ private:
 	static std::shared_ptr<std::map<Handler*,Level>>& registered_handlers();
 
 	/**
-	 * Log a message at the specified level.
-	 *
-	 * @param[in] level Severity level of the message.
-	 * @param[in] format Format string.
-	 * @param[in] ap Variable arguments pointer for format string.
-	 * @since 1.0.0
-	 */
-	void vlog(Level level, const char *format, va_list ap) const;
-	/**
-	 * Log a message at the specified level.
-	 *
-	 * @param[in] level Severity level of the message.
-	 * @param[in] format Format string (flash string).
-	 * @param[in] ap Variable arguments pointer for format string.
-	 * @since 1.0.0
-	 */
-	void vlog(Level level, const __FlashStringHelper *format, va_list ap) const;
-
-	/**
-	 * Log a message at the specified level and facility.
-	 *
-	 * @param[in] level Severity level of the message.
-	 * @param[in] facility Facility type of the process logging the message.
-	 * @param[in] format Format string.
-	 * @param[in] ap Variable arguments pointer for format string.
-	 * @since 1.0.0
-	 */
-	void vlog(Level level, Facility facility, const char *format, va_list ap) const;
-	/**
-	 * Log a message at the specified level and facility.
-	 *
-	 * @param[in] level Severity level of the message.
-	 * @param[in] facility Facility type of the process logging the message.
-	 * @param[in] format Format string (flash string).
-	 * @param[in] ap Variable arguments pointer for format string.
-	 * @since 1.0.0
-	 */
-	void vlog(Level level, Facility facility, const __FlashStringHelper *format, va_list ap) const;
-
-	/**
 	 * Dispatch a log message to all handlers that are registered to
 	 * handle messages of the specified level.
 	 *
@@ -717,6 +759,15 @@ private:
 	 * @since 1.0.0
 	 */
 	void dispatch(Level level, Facility facility, std::vector<char> &text) const;
+
+	/**
+	 * Dispatch a log message to all handlers that are registered to
+	 * handle messages of the specified level.
+	 *
+	 * @param[in] message Log message.
+	 * @since 3.1.0
+	 */
+	void dispatch(const std::shared_ptr<Message> &message) const;
 
 	static std::atomic<Level> global_level_; /*!< Minimum global log level across all handlers. @since 3.0.0 */
 #if UUID_LOG_THREAD_SAFE
