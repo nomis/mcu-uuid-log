@@ -364,7 +364,7 @@ public:
 	 *
 	 * @since 1.0.0
 	 */
-	Logger(const __FlashStringHelper *name, Facility facility = Facility::LOCAL0);
+	explicit Logger(const __FlashStringHelper *name, Facility facility = Facility::LOCAL0);
 	~Logger() = default;
 
 	/**
@@ -799,7 +799,7 @@ public:
 	 * @param[in] print Destination for output of log messages.
 	 * @since 2.2.0
 	 */
-	PrintHandler(Print &print);
+	explicit PrintHandler(Print &print);
 	~PrintHandler() = default;
 
 	/**
@@ -837,7 +837,7 @@ public:
 	 * @param[in] message New log message, shared by all handlers.
 	 * @since 2.2.0
 	 */
-	virtual void operator<<(std::shared_ptr<Message> message);
+	void operator<<(std::shared_ptr<Message> message) override;
 
 private:
 	Print &print_; /*!< Destination for output of log messages. @since 2.2.0 */
